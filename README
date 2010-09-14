@@ -1,0 +1,17 @@
+
+This is the port of ANTLR StringTemplate engine 3.2.1 by Terence Parr into PHP. 
+The bets way to check what is working is to run the unit tests.
+
+>php test.php
+
+Library requires the following frameworks:
+
+* PHPUnit 3.4
+* Zend Framework 1.10
+
+and above.
+
+--
+wbr,
+Y.Y.
+
