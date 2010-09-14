@@ -1,6 +1,6 @@
 
 This is the port of ANTLR StringTemplate engine 3.2.1 by Terence Parr into PHP. 
-The bets way to check what is working is to run the unit tests.
+The best way to check what is working is to run the unit tests.
 
 >php test.php
 
