@@ -106,7 +106,7 @@ class TestStringTemplate extends \PHPUnit_Framework_TestCase
         self::writeFile($tmpdir, "testG.stg", $templates);
 
         $reader = new FileReader($tmpdir . "/testG.stg");
-        new StringTemplateGroup($reader, $errors);
+        StringTemplateGroup::groupFactory($reader, $errors);
 
         $expecting = "no group loader registered";
         $this->assertEquals($expecting, $errors . toString());
