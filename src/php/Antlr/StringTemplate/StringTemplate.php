@@ -39,6 +39,7 @@ namespace Antlr\StringTemplate;
 use Antlr\Util\Reader;
 use Antlr\Util\StringBuffer;
 use Antlr\StringTemplate\Language\StringTemplateAST;
+use Antlr\StringTemplate\Language\FormalArgument;
 
 /**
  *  Manages a group of named mutually-referential StringTemplate objects.
@@ -141,7 +142,7 @@ class StringTemplate {
      */
     private static function getNextTemplateCounter()
     {
-        return $this->templateCounter++;
+        return self::$templateCounter++;
     }
 
     /**
@@ -579,7 +580,12 @@ class StringTemplate {
         $this->groupFileLine = $groupFileLine;
     }
 
-    public function setTemplate(String $template) {
+    /**
+     * Set template
+     *
+     * @param string $template
+     */
+    public function setTemplate($template) {
         $this->pattern = $template;
         $this->breakTemplateIntoChunks();
     }

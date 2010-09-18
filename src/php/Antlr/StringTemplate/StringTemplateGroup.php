@@ -100,12 +100,6 @@ class StringTemplateGroup
      */
 	protected $templateLexerClassName = '';
 
-	/** You can set the lexer once if you know all of your groups use the
-	 *  same separator.  If the instance has templateLexerClass set
-	 *  then it is used as an override.
-	 */
-	//protected static Class defaultTemplateLexerClass = DefaultTemplateLexer.class;
-
 	/**
      * Under what directory should I look for templates?  If null,
 	 * to look into the CLASSPATH for templates as resources.
@@ -252,18 +246,26 @@ class StringTemplateGroup
      *
      * @param string $name
      * @param string $rootDir
-     * @param object $lexer
+     * @param string $lexer   Name of the lexer class
+     *
      * @return void
 	 */
-    public function __construct($name, $rootDir, $lexer)
+    public function __construct($name, $rootDir, $lexer = 'AngleBracketTemplateLexer')
     {
-		$this->name = $name;
-		$this->rootDir = $rootDir;
-		$this->lastCheckedDisk = now();
-		$this->nameToGroupMap[$name] = $this;
-		$this->templateLexerClass = $lexer;
-        
-        $this->$refreshIntervalInSeconds = intval('1000000000000000000000')/1000; // default: no refreshing from disk
+        if (!empty($name)) {
+            $this->name = $name;
+            $this->nameToGroupMap[$name] = $this;
+        } // else name will be set by parsing procedure
+        $this->rootDir = $rootDir;
+       // if no lexer specified, then assume <...> when loading from group file
+        if (is_null($lexer)) {
+            $this->templateLexerClassName = 'AngleBracketTemplateLexer';
+        } else {
+            $this->templateLexerClassName = $lexer;
+        }
+        // reading checkpoints
+        $this->lastCheckedDisk = time();
+        $this->refreshIntervalInSeconds = intval('1000000000000000000000')/1000; // default: no refreshing from disk
 	}
 
 	/** Create a group from the input stream, but use a nondefault lexer
@@ -271,30 +273,32 @@ class StringTemplateGroup
 	 *  the delimiter from the default $...$ to <...>, for example.
      *
      * @param Reader $reader
-     * @param string $lexer Lexer classname
      * @param StringTemplateErrorListener $listener
-     * @param StringTemplateGroup $superGroup
+     * @param string                      $lexer Lexer classname
+     * @param StringTemplateGroup         $superGroup
      *
      * @return StringTemplateGroup
 	 */
 	public static function groupFactory($reader,
-							   $lexer,
-							   StringTemplateErrorListener $errors,
-							   StringTemplateGroup $superGroup)
+							   StringTemplateErrorListener $errors = null,
+                               $lexer = 'AngleBracketTemplateLexer',
+							   StringTemplateGroup $superGroup = null)
 	{
-		$this->templatesDefinedInGroupFile = true;
-		// if no lexer specified, then assume <...> when loading from group file
-		if ( $lexer==null ) {
-			$lexer = new AngleBracketTemplateLexer;
+        $group = new StringTemplateGroup(null, null, $lexer);
+		$group->templatesDefinedInGroupFile = true;
+		if (!is_null($errors)) { // always have to have a listener
+			$group->listener = $errors;
 		}
-		$this->templateLexerClassName = $lexer;
-		if ( $this->errors!=null ) { // always have to have a listener
-			$this->listener = $errors;
+        if (!is_null($superGroup)) {
+            $group->setSuperGroup($superGroup);
+        }
+		$group->parseGroup($reader);
+        // set name, found by parsing
+        if ($group->getName() != null) {
+			$name = $group->getName();
+            $group->nameToGroupMap[$name] = $group;
 		}
-		$this->setSuperGroup(superGroup);
-		$this->parseGroup(r);
-		$this->nameToGroupMap[$name] = $this;
-		$this->verifyInterfaceImplementations();
+		$group->verifyInterfaceImplementations();
 	}
 
 	/** What lexer class to use to break up templates.  If not lexer set
@@ -304,6 +308,9 @@ class StringTemplateGroup
 	 */
 	public function templateLexerFactory()
     {
+        if (empty($this->templateLexerClassName)) {
+           //TODO: create default factory
+        }
 		return new $this->templateLexerClassName;
 	}
 
@@ -964,11 +971,12 @@ class StringTemplateGroup
 			//System.out.println("read group\n"+this.toString());
 		} catch (Exception $exception) {
 			$name = "<unknown>";
-			if ( $this->getName()!=null ) {
+			if ($this->getName() != null) {
 				$name = $this->getName();
+                $this->nameToGroupMap[$name] = $this;
 			}
-			$this->error("problem parsing group "+name+": "+e, e);
-		}
+			$this->error("problem parsing group ".$name.": ".$exception, $exception);
+		}        
 	}
 
 	/**

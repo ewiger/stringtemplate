@@ -46,7 +46,7 @@ namespace Antlr\Util;
  * @license   http://www.opensource.org/licenses/bsd-license.php The BSD License
  * @link      http://www.antlr.org/
  */
-class ArrayList implements ArrayAccess, Iterator, Countable
+class ArrayList implements \ArrayAccess, \Iterator, \Countable
 {
     /**
      * Inner container
