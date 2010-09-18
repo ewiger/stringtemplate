@@ -39,7 +39,7 @@ namespace Antlr\StringTemplate;
 use Antlr\Util\ArrayList;
 
 /**
- * StringTemplateArrayList 
+ * StringTemplateAttributes
  *
  * @category  Antlr
  * @package   Antlr_StringTemplate
