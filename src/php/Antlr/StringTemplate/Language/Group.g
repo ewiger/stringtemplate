@@ -56,8 +56,12 @@ options {
     //charVocabulary = '\u0000'..'\uFFFE';
     //testLiterals=false;
 }
-@header {
-    namespace Antlr\StringTemplate\Language;
+
+@parser::header {
+namespace Antlr\StringTemplate\Language;
+}
+@lexer::header {
+namespace Antlr\StringTemplate\Language;
 }
 
 @parser::members {
