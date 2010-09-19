@@ -8,8 +8,19 @@ Library requires the following frameworks:
 
 * PHPUnit 3.4
 * Zend Framework 1.10
+* Antlr PHP Runtime 3.2
 
 and above.
+
+To generate grammar - get the latest Antlr runtime implementation for PHP.
+It must contain an antlr-tool launching script, which you can invoke as 
+
+../antlr-php-runtime/antlr-tool.sh src/php/Antlr/StringTemplate/Language/Group.g
+
+an so on.
+
+You must also extend your PHP include path with 'Antlr/Runtime/..' code 
+in order to use StringTemplate.
 
 --
 wbr,
