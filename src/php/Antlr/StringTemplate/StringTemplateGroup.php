@@ -38,6 +38,8 @@ namespace Antlr\StringTemplate;
 
 use Antlr\Util\Reader;
 use Antlr\Util\StringBuffer;
+use Antlr\StringTemplate\Language\GroupLexer;
+use Antlr\StringTemplate\Language\GroupParser;
 
 /**
  *  Manages a group of named mutually-referential StringTemplate objects.

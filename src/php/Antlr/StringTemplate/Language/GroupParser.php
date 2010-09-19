@@ -1,5 +1,8 @@
 <?php
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 Group.g 2010-06-20 00:50:44
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 src/php/Antlr/StringTemplate/Language/Group.g 2010-09-19 15:00:56
+
+    namespace Antlr\StringTemplate\Language;
+
 
 /** Match a group of template definitions beginning
  *  with a group name declaration.  Templates are enclosed
@@ -23,10 +26,27 @@
 
  */
 
-# for convenience in actions
-if (!defined('HIDDEN')) define('HIDDEN', BaseRecognizer::$HIDDEN);
+use Antlr\Runtime\IntStream;
+use Antlr\Runtime\DFA;
+use Antlr\Runtime\Parser;
+use Antlr\Runtime\Lexer;
+use Antlr\Runtime\CommonToken;
+use Antlr\Runtime\Set;
+use Antlr\Runtime\Token;
+use Antlr\Runtime\CharStream;
+use Antlr\Runtime\RecognizerSharedState;
+use Antlr\Runtime\ParserRuleReturnScope;
 
-class GroupParser extends AntlrParser {
+use Antlr\Runtime\EarlyExitException;
+use Antlr\Runtime\FailedPredicateException;
+use Antlr\Runtime\MismatchedRangeException;
+use Antlr\Runtime\MismatchedSetException;
+use Antlr\Runtime\MismatchedTokenException;
+use Antlr\Runtime\NoViableAltException;
+use Antlr\Runtime\RecognitionException;
+use Antlr\Runtime\UnwantedtokenException;
+
+class GroupParser extends Parser {
     public static $tokenNames = array(
         "<invalid>", "<EOR>", "<DOWN>", "<UP>", "ID", "COLON", "COMMA", "SEMI", "AT", "DOT", "LPAREN", "RPAREN", "DEFINED_TO_BE", "STRING", "BIGSTRING", "ASSIGN", "ANONYMOUS_TEMPLATE", "LBRACK", "RBRACK", "STAR", "PLUS", "OPTIONAL", "COMMENT", "LINE_COMMENT", "WS", "'group'", "'implements'", "'default'"
     );
@@ -59,78 +79,76 @@ class GroupParser extends AntlrParser {
     // delegates
     // delegators
 
-    
-    static $FOLLOW_25_in_group66;
-    static $FOLLOW_ID_in_group70;
-    static $FOLLOW_COLON_in_group80;
-    static $FOLLOW_ID_in_group84;
-    static $FOLLOW_26_in_group97;
-    static $FOLLOW_ID_in_group101;
-    static $FOLLOW_COMMA_in_group112;
-    static $FOLLOW_ID_in_group116;
-    static $FOLLOW_SEMI_in_group130;
-    static $FOLLOW_template_in_group135;
-    static $FOLLOW_mapdef_in_group140;
-    static $FOLLOW_AT_in_template169;
-    static $FOLLOW_ID_in_template173;
-    static $FOLLOW_DOT_in_template175;
-    static $FOLLOW_ID_in_template179;
-    static $FOLLOW_ID_in_template197;
-    static $FOLLOW_LPAREN_in_template225;
-    static $FOLLOW_args_in_template237;
-    static $FOLLOW_RPAREN_in_template248;
-    static $FOLLOW_DEFINED_TO_BE_in_template255;
-    static $FOLLOW_STRING_in_template266;
-    static $FOLLOW_BIGSTRING_in_template283;
-    static $FOLLOW_ID_in_template302;
-    static $FOLLOW_DEFINED_TO_BE_in_template304;
-    static $FOLLOW_ID_in_template308;
-    static $FOLLOW_arg_in_args330;
-    static $FOLLOW_COMMA_in_args335;
-    static $FOLLOW_arg_in_args337;
-    static $FOLLOW_ID_in_arg360;
-    static $FOLLOW_ASSIGN_in_arg366;
-    static $FOLLOW_STRING_in_arg370;
-    static $FOLLOW_ASSIGN_in_arg381;
-    static $FOLLOW_ANONYMOUS_TEMPLATE_in_arg385;
-    static $FOLLOW_ID_in_mapdef430;
-    static $FOLLOW_DEFINED_TO_BE_in_mapdef435;
-    static $FOLLOW_map_in_mapdef439;
-    static $FOLLOW_LBRACK_in_map461;
-    static $FOLLOW_mapPairs_in_map463;
-    static $FOLLOW_RBRACK_in_map466;
-    static $FOLLOW_keyValuePair_in_mapPairs483;
-    static $FOLLOW_COMMA_in_mapPairs487;
-    static $FOLLOW_keyValuePair_in_mapPairs489;
-    static $FOLLOW_COMMA_in_mapPairs501;
-    static $FOLLOW_defaultValuePair_in_mapPairs503;
-    static $FOLLOW_defaultValuePair_in_mapPairs514;
-    static $FOLLOW_27_in_defaultValuePair538;
-    static $FOLLOW_COLON_in_defaultValuePair540;
-    static $FOLLOW_keyValue_in_defaultValuePair544;
-    static $FOLLOW_STRING_in_keyValuePair572;
-    static $FOLLOW_COLON_in_keyValuePair574;
-    static $FOLLOW_keyValue_in_keyValuePair578;
-    static $FOLLOW_BIGSTRING_in_keyValue597;
-    static $FOLLOW_STRING_in_keyValue606;
-    static $FOLLOW_ID_in_keyValue616;
 
-    
-    
+    static public $FOLLOW_25_in_group71 = array(4 => 4);
+    static public $FOLLOW_ID_in_group75 = array(5 => 5, 7 => 7, 26 => 26);
+    static public $FOLLOW_COLON_in_group85 = array(4 => 4);
+    static public $FOLLOW_ID_in_group89 = array(7 => 7, 26 => 26);
+    static public $FOLLOW_26_in_group102 = array(4 => 4);
+    static public $FOLLOW_ID_in_group106 = array(6 => 6, 7 => 7);
+    static public $FOLLOW_COMMA_in_group117 = array(4 => 4);
+    static public $FOLLOW_ID_in_group121 = array(6 => 6, 7 => 7);
+    static public $FOLLOW_SEMI_in_group135 = array(4 => 4, 8 => 8);
+    static public $FOLLOW_template_in_group140 = array(1 => 1, 4 => 4, 8 => 8);
+    static public $FOLLOW_mapdef_in_group145 = array(1 => 1, 4 => 4, 8 => 8);
+    static public $FOLLOW_AT_in_template174 = array(4 => 4);
+    static public $FOLLOW_ID_in_template178 = array(9 => 9);
+    static public $FOLLOW_DOT_in_template180 = array(4 => 4);
+    static public $FOLLOW_ID_in_template184 = array(10 => 10);
+    static public $FOLLOW_ID_in_template202 = array(10 => 10);
+    static public $FOLLOW_LPAREN_in_template230 = array(4 => 4, 11 => 11);
+    static public $FOLLOW_args_in_template242 = array(11 => 11);
+    static public $FOLLOW_RPAREN_in_template253 = array(12 => 12);
+    static public $FOLLOW_DEFINED_TO_BE_in_template260 = array(13 => 13, 14 => 14);
+    static public $FOLLOW_STRING_in_template271 = array(1 => 1);
+    static public $FOLLOW_BIGSTRING_in_template288 = array(1 => 1);
+    static public $FOLLOW_ID_in_template307 = array(12 => 12);
+    static public $FOLLOW_DEFINED_TO_BE_in_template309 = array(4 => 4);
+    static public $FOLLOW_ID_in_template313 = array(1 => 1);
+    static public $FOLLOW_arg_in_args335 = array(1 => 1, 6 => 6);
+    static public $FOLLOW_COMMA_in_args340 = array(4 => 4);
+    static public $FOLLOW_arg_in_args342 = array(1 => 1, 6 => 6);
+    static public $FOLLOW_ID_in_arg365 = array(1 => 1, 15 => 15);
+    static public $FOLLOW_ASSIGN_in_arg371 = array(13 => 13);
+    static public $FOLLOW_STRING_in_arg375 = array(1 => 1);
+    static public $FOLLOW_ASSIGN_in_arg386 = array(16 => 16);
+    static public $FOLLOW_ANONYMOUS_TEMPLATE_in_arg390 = array(1 => 1);
+    static public $FOLLOW_ID_in_mapdef435 = array(12 => 12);
+    static public $FOLLOW_DEFINED_TO_BE_in_mapdef440 = array(17 => 17);
+    static public $FOLLOW_map_in_mapdef444 = array(1 => 1);
+    static public $FOLLOW_LBRACK_in_map466 = array(13 => 13, 27 => 27);
+    static public $FOLLOW_mapPairs_in_map468 = array(18 => 18);
+    static public $FOLLOW_RBRACK_in_map471 = array(1 => 1);
+    static public $FOLLOW_keyValuePair_in_mapPairs488 = array(1 => 1, 6 => 6);
+    static public $FOLLOW_COMMA_in_mapPairs492 = array(13 => 13);
+    static public $FOLLOW_keyValuePair_in_mapPairs494 = array(1 => 1, 6 => 6);
+    static public $FOLLOW_COMMA_in_mapPairs506 = array(13 => 13, 27 => 27);
+    static public $FOLLOW_defaultValuePair_in_mapPairs508 = array(1 => 1);
+    static public $FOLLOW_defaultValuePair_in_mapPairs519 = array(1 => 1);
+    static public $FOLLOW_27_in_defaultValuePair543 = array(5 => 5);
+    static public $FOLLOW_COLON_in_defaultValuePair545 = array(4 => 4, 13 => 13, 14 => 14);
+    static public $FOLLOW_keyValue_in_defaultValuePair549 = array(1 => 1);
+    static public $FOLLOW_STRING_in_keyValuePair577 = array(5 => 5);
+    static public $FOLLOW_COLON_in_keyValuePair579 = array(4 => 4, 13 => 13, 14 => 14);
+    static public $FOLLOW_keyValue_in_keyValuePair583 = array(1 => 1);
+    static public $FOLLOW_BIGSTRING_in_keyValue602 = array(1 => 1);
+    static public $FOLLOW_STRING_in_keyValue611 = array(1 => 1);
+    static public $FOLLOW_ID_in_keyValue621 = array(1 => 1);
+
+
+
 
         public function __construct($input, $state = null) {
             if($state==null){
                 $state = new RecognizerSharedState();
             }
             parent::__construct($input, $state);
-             
-            
-            
+
         }
         
 
     public function getTokenNames() { return GroupParser::$tokenNames; }
-    public function getGrammarFileName() { return "Group.g"; }
+    public function getGrammarFileName() { return "src/php/Antlr/StringTemplate/Language/Group.g"; }
 
 
         
@@ -147,24 +165,24 @@ class GroupParser extends AntlrParser {
 
 
     // $ANTLR start "group"
-    // Group.g:72:1: group[StringTemplateGroup g] : 'group' name= ID ( COLON s= ID )? ( 'implements' i= ID ( COMMA i2= ID )* )? SEMI ( template[g] | mapdef[g] )+ ; 
-    public function group(StringTemplateGroup g){
-        $name=null;
-        $s=null;
-        $i=null;
-        $i2=null;
+    // src/php/Antlr/StringTemplate/Language/Group.g
+    public function group($StringTemplateGroup g){
+        $name = null;
+        $s = null;
+        $i = null;
+        $i2 = null;
 
 
             $this->group = $g;
 
         try {
-            // Group.g:76:5: ( 'group' name= ID ( COLON s= ID )? ( 'implements' i= ID ( COMMA i2= ID )* )? SEMI ( template[g] | mapdef[g] )+ ) 
-            // Group.g:76:7: 'group' name= ID ( COLON s= ID )? ( 'implements' i= ID ( COMMA i2= ID )* )? SEMI ( template[g] | mapdef[g] )+ 
+            // src/php/Antlr/StringTemplate/Language/Group.g
+            // src/php/Antlr/StringTemplate/Language/Group.g
             {
-            $this->match($this->input,$this->getToken('25'),self::$FOLLOW_25_in_group66); 
-            $name=$this->match($this->input,$this->getToken('ID'),self::$FOLLOW_ID_in_group70); 
+            $this->match($this->input,$this->getToken('25'),self::$FOLLOW_25_in_group71); 
+            $name=$this->match($this->input,$this->getToken('ID'),self::$FOLLOW_ID_in_group75); 
               $g->setName($name->getText());
-            // Group.g:77:5: ( COLON s= ID )? 
+            // src/php/Antlr/StringTemplate/Language/Group.g
             $alt1=2;
             $LA1_0 = $this->input->LA(1);
 
@@ -173,10 +191,10 @@ class GroupParser extends AntlrParser {
             }
             switch ($alt1) {
                 case 1 :
-                    // Group.g:77:7: COLON s= ID 
+                    // src/php/Antlr/StringTemplate/Language/Group.g
                     {
-                    $this->match($this->input,$this->getToken('COLON'),self::$FOLLOW_COLON_in_group80); 
-                    $s=$this->match($this->input,$this->getToken('ID'),self::$FOLLOW_ID_in_group84); 
+                    $this->match($this->input,$this->getToken('COLON'),self::$FOLLOW_COLON_in_group85); 
+                    $s=$this->match($this->input,$this->getToken('ID'),self::$FOLLOW_ID_in_group89); 
                       $g->setSuperGroup($s->getText());
 
                     }
@@ -184,7 +202,7 @@ class GroupParser extends AntlrParser {
 
             }
 
-            // Group.g:78:5: ( 'implements' i= ID ( COMMA i2= ID )* )? 
+            // src/php/Antlr/StringTemplate/Language/Group.g
             $alt3=2;
             $LA3_0 = $this->input->LA(1);
 
@@ -193,12 +211,12 @@ class GroupParser extends AntlrParser {
             }
             switch ($alt3) {
                 case 1 :
-                    // Group.g:78:7: 'implements' i= ID ( COMMA i2= ID )* 
+                    // src/php/Antlr/StringTemplate/Language/Group.g
                     {
-                    $this->match($this->input,$this->getToken('26'),self::$FOLLOW_26_in_group97); 
-                    $i=$this->match($this->input,$this->getToken('ID'),self::$FOLLOW_ID_in_group101); 
+                    $this->match($this->input,$this->getToken('26'),self::$FOLLOW_26_in_group102); 
+                    $i=$this->match($this->input,$this->getToken('ID'),self::$FOLLOW_ID_in_group106); 
                       $g->implementInterface($i->getText());
-                    // Group.g:79:7: ( COMMA i2= ID )* 
+                    // src/php/Antlr/StringTemplate/Language/Group.g
                     //loop2:
                     do {
                         $alt2=2;
@@ -211,10 +229,10 @@ class GroupParser extends AntlrParser {
 
                         switch ($alt2) {
                     	case 1 :
-                    	    // Group.g:79:8: COMMA i2= ID 
+                    	    // src/php/Antlr/StringTemplate/Language/Group.g
                     	    {
-                    	    $this->match($this->input,$this->getToken('COMMA'),self::$FOLLOW_COMMA_in_group112); 
-                    	    $i2=$this->match($this->input,$this->getToken('ID'),self::$FOLLOW_ID_in_group116); 
+                    	    $this->match($this->input,$this->getToken('COMMA'),self::$FOLLOW_COMMA_in_group117); 
+                    	    $i2=$this->match($this->input,$this->getToken('ID'),self::$FOLLOW_ID_in_group121); 
                     	      $g->implementInterface($i2->getText());
 
                     	    }
@@ -231,8 +249,8 @@ class GroupParser extends AntlrParser {
 
             }
 
-            $this->match($this->input,$this->getToken('SEMI'),self::$FOLLOW_SEMI_in_group130); 
-            // Group.g:80:14: ( template[g] | mapdef[g] )+ 
+            $this->match($this->input,$this->getToken('SEMI'),self::$FOLLOW_SEMI_in_group135); 
+            // src/php/Antlr/StringTemplate/Language/Group.g
             $cnt4=0;
             //loop4:
             do {
@@ -267,9 +285,9 @@ class GroupParser extends AntlrParser {
 
                 switch ($alt4) {
             	case 1 :
-            	    // Group.g:80:16: template[g] 
+            	    // src/php/Antlr/StringTemplate/Language/Group.g
             	    {
-            	    $this->pushFollow(self::$FOLLOW_template_in_group135);
+            	    $this->pushFollow(self::$FOLLOW_template_in_group140);
             	    $this->template(g);
 
             	    $this->state->_fsp--;
@@ -278,9 +296,9 @@ class GroupParser extends AntlrParser {
             	    }
             	    break;
             	case 2 :
-            	    // Group.g:80:30: mapdef[g] 
+            	    // src/php/Antlr/StringTemplate/Language/Group.g
             	    {
-            	    $this->pushFollow(self::$FOLLOW_mapdef_in_group140);
+            	    $this->pushFollow(self::$FOLLOW_mapdef_in_group145);
             	    $this->mapdef(g);
 
             	    $this->state->_fsp--;
@@ -309,27 +327,30 @@ class GroupParser extends AntlrParser {
         catch(Exception $e) {
             throw $e;
         }
-        
+
         return ;
     }
     // $ANTLR end "group"
 
-    public static class template_return extends ParserRuleReturnScope {
-    };
+    public static function template_return() {
+        $retval = new ParserRuleReturnScope();
+    	return $retval;
+    }
 
     // $ANTLR start "template"
-    // Group.g:83:1: template[StringTemplateGroup g] : ( ( AT enclosing= ID DOT region= ID | name= ID ) LPAREN ( args[st] | ) RPAREN DEFINED_TO_BE (t= STRING | bt= BIGSTRING ) | alias= ID DEFINED_TO_BE target= ID ); 
-    public function template(StringTemplateGroup g){
-        $retval = new GroupParser.template_return();
+    // src/php/Antlr/StringTemplate/Language/Group.g
+    public function template($StringTemplateGroup g){
+        $retval = $this->template_return();
         $retval->start = $this->input->LT(1);
 
-        $enclosing=null;
-        $region=null;
-        $name=null;
-        $t=null;
-        $bt=null;
-        $alias=null;
-        $target=null;
+
+        $enclosing = null;
+        $region = null;
+        $name = null;
+        $t = null;
+        $bt = null;
+        $alias = null;
+        $target = null;
 
 
             /* @var array $formalArgs */
@@ -342,7 +363,7 @@ class GroupParser extends AntlrParser {
             $line = $this->LT(1)->getLine();
 
         try {
-            // Group.g:94:5: ( ( AT enclosing= ID DOT region= ID | name= ID ) LPAREN ( args[st] | ) RPAREN DEFINED_TO_BE (t= STRING | bt= BIGSTRING ) | alias= ID DEFINED_TO_BE target= ID ) 
+            // src/php/Antlr/StringTemplate/Language/Group.g
             $alt8=2;
             $LA8_0 = $this->input->LA(1);
 
@@ -371,9 +392,9 @@ class GroupParser extends AntlrParser {
             }
             switch ($alt8) {
                 case 1 :
-                    // Group.g:94:7: ( AT enclosing= ID DOT region= ID | name= ID ) LPAREN ( args[st] | ) RPAREN DEFINED_TO_BE (t= STRING | bt= BIGSTRING ) 
+                    // src/php/Antlr/StringTemplate/Language/Group.g
                     {
-                    // Group.g:94:7: ( AT enclosing= ID DOT region= ID | name= ID ) 
+                    // src/php/Antlr/StringTemplate/Language/Group.g
                     $alt5=2;
                     $LA5_0 = $this->input->LA(1);
 
@@ -390,12 +411,12 @@ class GroupParser extends AntlrParser {
                     }
                     switch ($alt5) {
                         case 1 :
-                            // Group.g:94:9: AT enclosing= ID DOT region= ID 
+                            // src/php/Antlr/StringTemplate/Language/Group.g
                             {
-                            $this->match($this->input,$this->getToken('AT'),self::$FOLLOW_AT_in_template169); 
-                            $enclosing=$this->match($this->input,$this->getToken('ID'),self::$FOLLOW_ID_in_template173); 
-                            $this->match($this->input,$this->getToken('DOT'),self::$FOLLOW_DOT_in_template175); 
-                            $region=$this->match($this->input,$this->getToken('ID'),self::$FOLLOW_ID_in_template179); 
+                            $this->match($this->input,$this->getToken('AT'),self::$FOLLOW_AT_in_template174); 
+                            $enclosing=$this->match($this->input,$this->getToken('ID'),self::$FOLLOW_ID_in_template178); 
+                            $this->match($this->input,$this->getToken('DOT'),self::$FOLLOW_DOT_in_template180); 
+                            $region=$this->match($this->input,$this->getToken('ID'),self::$FOLLOW_ID_in_template184); 
 
                                           $templateName = $g->getMangledRegionName($enclosing->getText(), $region->getText());
                                           if ( $g->isDefinedInThisGroup($templateName) ) {
@@ -431,9 +452,9 @@ class GroupParser extends AntlrParser {
                             }
                             break;
                         case 2 :
-                            // Group.g:126:8: name= ID 
+                            // src/php/Antlr/StringTemplate/Language/Group.g
                             {
-                            $name=$this->match($this->input,$this->getToken('ID'),self::$FOLLOW_ID_in_template197); 
+                            $name=$this->match($this->input,$this->getToken('ID'),self::$FOLLOW_ID_in_template202); 
                               $templateName = $name->getText();
 
                               			if ( $g->isDefinedInThisGroup(templateName) ) {
@@ -451,8 +472,8 @@ class GroupParser extends AntlrParser {
                     }
 
                        if ( $st!=null ) {$st->setGroupFileLine($line);} 
-                    $this->match($this->input,$this->getToken('LPAREN'),self::$FOLLOW_LPAREN_in_template225); 
-                    // Group.g:139:10: ( args[st] | ) 
+                    $this->match($this->input,$this->getToken('LPAREN'),self::$FOLLOW_LPAREN_in_template230); 
+                    // src/php/Antlr/StringTemplate/Language/Group.g
                     $alt6=2;
                     $LA6_0 = $this->input->LA(1);
 
@@ -469,9 +490,9 @@ class GroupParser extends AntlrParser {
                     }
                     switch ($alt6) {
                         case 1 :
-                            // Group.g:139:11: args[st] 
+                            // src/php/Antlr/StringTemplate/Language/Group.g
                             {
-                            $this->pushFollow(self::$FOLLOW_args_in_template237);
+                            $this->pushFollow(self::$FOLLOW_args_in_template242);
                             $this->args(st);
 
                             $this->state->_fsp--;
@@ -480,7 +501,7 @@ class GroupParser extends AntlrParser {
                             }
                             break;
                         case 2 :
-                            // Group.g:139:20:  
+                            // src/php/Antlr/StringTemplate/Language/Group.g
                             {
                               $st->defineEmptyFormalArgumentList();
 
@@ -489,9 +510,9 @@ class GroupParser extends AntlrParser {
 
                     }
 
-                    $this->match($this->input,$this->getToken('RPAREN'),self::$FOLLOW_RPAREN_in_template248); 
-                    $this->match($this->input,$this->getToken('DEFINED_TO_BE'),self::$FOLLOW_DEFINED_TO_BE_in_template255); 
-                    // Group.g:142:6: (t= STRING | bt= BIGSTRING ) 
+                    $this->match($this->input,$this->getToken('RPAREN'),self::$FOLLOW_RPAREN_in_template253); 
+                    $this->match($this->input,$this->getToken('DEFINED_TO_BE'),self::$FOLLOW_DEFINED_TO_BE_in_template260); 
+                    // src/php/Antlr/StringTemplate/Language/Group.g
                     $alt7=2;
                     $LA7_0 = $this->input->LA(1);
 
@@ -508,17 +529,17 @@ class GroupParser extends AntlrParser {
                     }
                     switch ($alt7) {
                         case 1 :
-                            // Group.g:142:8: t= STRING 
+                            // src/php/Antlr/StringTemplate/Language/Group.g
                             {
-                            $t=$this->match($this->input,$this->getToken('STRING'),self::$FOLLOW_STRING_in_template266); 
+                            $t=$this->match($this->input,$this->getToken('STRING'),self::$FOLLOW_STRING_in_template271); 
                               $st->setTemplate($t->getText());
 
                             }
                             break;
                         case 2 :
-                            // Group.g:143:8: bt= BIGSTRING 
+                            // src/php/Antlr/StringTemplate/Language/Group.g
                             {
-                            $bt=$this->match($this->input,$this->getToken('BIGSTRING'),self::$FOLLOW_BIGSTRING_in_template283); 
+                            $bt=$this->match($this->input,$this->getToken('BIGSTRING'),self::$FOLLOW_BIGSTRING_in_template288); 
                               $st->setTemplate($bt->getText());
 
                             }
@@ -530,18 +551,18 @@ class GroupParser extends AntlrParser {
                     }
                     break;
                 case 2 :
-                    // Group.g:146:6: alias= ID DEFINED_TO_BE target= ID 
+                    // src/php/Antlr/StringTemplate/Language/Group.g
                     {
-                    $alias=$this->match($this->input,$this->getToken('ID'),self::$FOLLOW_ID_in_template302); 
-                    $this->match($this->input,$this->getToken('DEFINED_TO_BE'),self::$FOLLOW_DEFINED_TO_BE_in_template304); 
-                    $target=$this->match($this->input,$this->getToken('ID'),self::$FOLLOW_ID_in_template308); 
+                    $alias=$this->match($this->input,$this->getToken('ID'),self::$FOLLOW_ID_in_template307); 
+                    $this->match($this->input,$this->getToken('DEFINED_TO_BE'),self::$FOLLOW_DEFINED_TO_BE_in_template309); 
+                    $target=$this->match($this->input,$this->getToken('ID'),self::$FOLLOW_ID_in_template313); 
                       $g->defineTemplateAlias($alias->getText(), $target->getText());
 
                     }
                     break;
 
             }
-            retval.stop = input.LT(-1);
+            $retval->stop = $this->input->LT(-1);
 
         }
         catch (RecognitionException $re) {
@@ -551,25 +572,25 @@ class GroupParser extends AntlrParser {
         catch(Exception $e) {
             throw $e;
         }
-        
-        return retval;
+
+        return $retval;
     }
     // $ANTLR end "template"
 
 
     // $ANTLR start "args"
-    // Group.g:150:1: args[StringTemplate st] : arg[st] ( COMMA arg[st] )* ; 
-    public function args(StringTemplate st){
+    // src/php/Antlr/StringTemplate/Language/Group.g
+    public function args($StringTemplate st){
         try {
-            // Group.g:151:5: ( arg[st] ( COMMA arg[st] )* ) 
-            // Group.g:151:7: arg[st] ( COMMA arg[st] )* 
+            // src/php/Antlr/StringTemplate/Language/Group.g
+            // src/php/Antlr/StringTemplate/Language/Group.g
             {
-            $this->pushFollow(self::$FOLLOW_arg_in_args330);
+            $this->pushFollow(self::$FOLLOW_arg_in_args335);
             $this->arg(st);
 
             $this->state->_fsp--;
 
-            // Group.g:151:15: ( COMMA arg[st] )* 
+            // src/php/Antlr/StringTemplate/Language/Group.g
             //loop9:
             do {
                 $alt9=2;
@@ -582,10 +603,10 @@ class GroupParser extends AntlrParser {
 
                 switch ($alt9) {
             	case 1 :
-            	    // Group.g:151:17: COMMA arg[st] 
+            	    // src/php/Antlr/StringTemplate/Language/Group.g
             	    {
-            	    $this->match($this->input,$this->getToken('COMMA'),self::$FOLLOW_COMMA_in_args335); 
-            	    $this->pushFollow(self::$FOLLOW_arg_in_args337);
+            	    $this->match($this->input,$this->getToken('COMMA'),self::$FOLLOW_COMMA_in_args340); 
+            	    $this->pushFollow(self::$FOLLOW_arg_in_args342);
             	    $this->arg(st);
 
             	    $this->state->_fsp--;
@@ -610,29 +631,29 @@ class GroupParser extends AntlrParser {
         catch(Exception $e) {
             throw $e;
         }
-        
+
         return ;
     }
     // $ANTLR end "args"
 
 
     // $ANTLR start "arg"
-    // Group.g:154:1: arg[StringTemplate st] : name= ID ( ASSIGN s= STRING | ASSIGN bs= ANONYMOUS_TEMPLATE )? ; 
-    public function arg(StringTemplate st){
-        $name=null;
-        $s=null;
-        $bs=null;
+    // src/php/Antlr/StringTemplate/Language/Group.g
+    public function arg($StringTemplate st){
+        $name = null;
+        $s = null;
+        $bs = null;
 
 
         	/* @var StringTemplate $defaultValue */
         	$defaultValue = null;
 
         try {
-            // Group.g:159:2: (name= ID ( ASSIGN s= STRING | ASSIGN bs= ANONYMOUS_TEMPLATE )? ) 
-            // Group.g:159:4: name= ID ( ASSIGN s= STRING | ASSIGN bs= ANONYMOUS_TEMPLATE )? 
+            // src/php/Antlr/StringTemplate/Language/Group.g
+            // src/php/Antlr/StringTemplate/Language/Group.g
             {
-            $name=$this->match($this->input,$this->getToken('ID'),self::$FOLLOW_ID_in_arg360); 
-            // Group.g:160:3: ( ASSIGN s= STRING | ASSIGN bs= ANONYMOUS_TEMPLATE )? 
+            $name=$this->match($this->input,$this->getToken('ID'),self::$FOLLOW_ID_in_arg365); 
+            // src/php/Antlr/StringTemplate/Language/Group.g
             $alt10=3;
             $LA10_0 = $this->input->LA(1);
 
@@ -648,10 +669,10 @@ class GroupParser extends AntlrParser {
             }
             switch ($alt10) {
                 case 1 :
-                    // Group.g:160:5: ASSIGN s= STRING 
+                    // src/php/Antlr/StringTemplate/Language/Group.g
                     {
-                    $this->match($this->input,$this->getToken('ASSIGN'),self::$FOLLOW_ASSIGN_in_arg366); 
-                    $s=$this->match($this->input,$this->getToken('STRING'),self::$FOLLOW_STRING_in_arg370); 
+                    $this->match($this->input,$this->getToken('ASSIGN'),self::$FOLLOW_ASSIGN_in_arg371); 
+                    $s=$this->match($this->input,$this->getToken('STRING'),self::$FOLLOW_STRING_in_arg375); 
 
                       			$defaultValue=new StringTemplate("$_val_$");
                       			$defaultValue->setAttribute("_val_", $s->getText());
@@ -662,10 +683,10 @@ class GroupParser extends AntlrParser {
                     }
                     break;
                 case 2 :
-                    // Group.g:167:5: ASSIGN bs= ANONYMOUS_TEMPLATE 
+                    // src/php/Antlr/StringTemplate/Language/Group.g
                     {
-                    $this->match($this->input,$this->getToken('ASSIGN'),self::$FOLLOW_ASSIGN_in_arg381); 
-                    $bs=$this->match($this->input,$this->getToken('ANONYMOUS_TEMPLATE'),self::$FOLLOW_ANONYMOUS_TEMPLATE_in_arg385); 
+                    $this->match($this->input,$this->getToken('ASSIGN'),self::$FOLLOW_ASSIGN_in_arg386); 
+                    $bs=$this->match($this->input,$this->getToken('ANONYMOUS_TEMPLATE'),self::$FOLLOW_ANONYMOUS_TEMPLATE_in_arg390); 
 
                       			$defaultValue=new StringTemplate($st->getGroup(), $bs->getText());
                       			$defaultValue->setName("<".$st->getName()."'s arg ".$name->getText()." default value subtemplate>");
@@ -688,16 +709,16 @@ class GroupParser extends AntlrParser {
         catch(Exception $e) {
             throw $e;
         }
-        
+
         return ;
     }
     // $ANTLR end "arg"
 
 
     // $ANTLR start "mapdef"
-    // Group.g:185:1: mapdef[StringTemplateGroup g] : name= ID DEFINED_TO_BE m= map ; 
-    public function mapdef(StringTemplateGroup g){
-        $name=null;
+    // src/php/Antlr/StringTemplate/Language/Group.g
+    public function mapdef($StringTemplateGroup g){
+        $name = null;
         $m = null;
 
 
@@ -705,13 +726,13 @@ class GroupParser extends AntlrParser {
             Map m=null;
 
         try {
-            // Group.g:189:2: (name= ID DEFINED_TO_BE m= map ) 
-            // Group.g:189:4: name= ID DEFINED_TO_BE m= map 
+            // src/php/Antlr/StringTemplate/Language/Group.g
+            // src/php/Antlr/StringTemplate/Language/Group.g
             {
-            $name=$this->match($this->input,$this->getToken('ID'),self::$FOLLOW_ID_in_mapdef430); 
-            $this->match($this->input,$this->getToken('DEFINED_TO_BE'),self::$FOLLOW_DEFINED_TO_BE_in_mapdef435); 
-            $this->pushFollow(self::$FOLLOW_map_in_mapdef439);
-            $m=$this->map();
+            $name=$this->match($this->input,$this->getToken('ID'),self::$FOLLOW_ID_in_mapdef435); 
+            $this->match($this->input,$this->getToken('DEFINED_TO_BE'),self::$FOLLOW_DEFINED_TO_BE_in_mapdef440); 
+            $this->pushFollow(self::$FOLLOW_map_in_mapdef444);
+            $m = $this->map();
 
             $this->state->_fsp--;
 
@@ -737,28 +758,28 @@ class GroupParser extends AntlrParser {
         catch(Exception $e) {
             throw $e;
         }
-        
+
         return ;
     }
     // $ANTLR end "mapdef"
 
 
     // $ANTLR start "map"
-    // Group.g:204:1: map returns [Map mapping=new HashMap()] : LBRACK mapPairs[mapping] RBRACK ; 
+    // src/php/Antlr/StringTemplate/Language/Group.g
     public function map(){
         $mapping = new HashMap();
 
         try {
-            // Group.g:205:2: ( LBRACK mapPairs[mapping] RBRACK ) 
-            // Group.g:205:6: LBRACK mapPairs[mapping] RBRACK 
+            // src/php/Antlr/StringTemplate/Language/Group.g
+            // src/php/Antlr/StringTemplate/Language/Group.g
             {
-            $this->match($this->input,$this->getToken('LBRACK'),self::$FOLLOW_LBRACK_in_map461); 
-            $this->pushFollow(self::$FOLLOW_mapPairs_in_map463);
+            $this->match($this->input,$this->getToken('LBRACK'),self::$FOLLOW_LBRACK_in_map466); 
+            $this->pushFollow(self::$FOLLOW_mapPairs_in_map468);
             $this->mapPairs(mapping);
 
             $this->state->_fsp--;
 
-            $this->match($this->input,$this->getToken('RBRACK'),self::$FOLLOW_RBRACK_in_map466); 
+            $this->match($this->input,$this->getToken('RBRACK'),self::$FOLLOW_RBRACK_in_map471); 
 
             }
 
@@ -770,17 +791,17 @@ class GroupParser extends AntlrParser {
         catch(Exception $e) {
             throw $e;
         }
-        
+
         return $mapping;
     }
     // $ANTLR end "map"
 
 
     // $ANTLR start "mapPairs"
-    // Group.g:208:1: mapPairs[Map mapping] : ( keyValuePair[mapping] ( COMMA keyValuePair[mapping] )* ( COMMA defaultValuePair[mapping] )? | defaultValuePair[mapping] ); 
-    public function mapPairs(Map mapping){
+    // src/php/Antlr/StringTemplate/Language/Group.g
+    public function mapPairs($Map mapping){
         try {
-            // Group.g:209:5: ( keyValuePair[mapping] ( COMMA keyValuePair[mapping] )* ( COMMA defaultValuePair[mapping] )? | defaultValuePair[mapping] ) 
+            // src/php/Antlr/StringTemplate/Language/Group.g
             $alt13=2;
             $LA13_0 = $this->input->LA(1);
 
@@ -797,14 +818,14 @@ class GroupParser extends AntlrParser {
             }
             switch ($alt13) {
                 case 1 :
-                    // Group.g:209:7: keyValuePair[mapping] ( COMMA keyValuePair[mapping] )* ( COMMA defaultValuePair[mapping] )? 
+                    // src/php/Antlr/StringTemplate/Language/Group.g
                     {
-                    $this->pushFollow(self::$FOLLOW_keyValuePair_in_mapPairs483);
+                    $this->pushFollow(self::$FOLLOW_keyValuePair_in_mapPairs488);
                     $this->keyValuePair(mapping);
 
                     $this->state->_fsp--;
 
-                    // Group.g:209:29: ( COMMA keyValuePair[mapping] )* 
+                    // src/php/Antlr/StringTemplate/Language/Group.g
                     //loop11:
                     do {
                         $alt11=2;
@@ -823,10 +844,10 @@ class GroupParser extends AntlrParser {
 
                         switch ($alt11) {
                     	case 1 :
-                    	    // Group.g:209:30: COMMA keyValuePair[mapping] 
+                    	    // src/php/Antlr/StringTemplate/Language/Group.g
                     	    {
-                    	    $this->match($this->input,$this->getToken('COMMA'),self::$FOLLOW_COMMA_in_mapPairs487); 
-                    	    $this->pushFollow(self::$FOLLOW_keyValuePair_in_mapPairs489);
+                    	    $this->match($this->input,$this->getToken('COMMA'),self::$FOLLOW_COMMA_in_mapPairs492); 
+                    	    $this->pushFollow(self::$FOLLOW_keyValuePair_in_mapPairs494);
                     	    $this->keyValuePair(mapping);
 
                     	    $this->state->_fsp--;
@@ -840,7 +861,7 @@ class GroupParser extends AntlrParser {
                         }
                     } while (true);
 
-                    // Group.g:210:7: ( COMMA defaultValuePair[mapping] )? 
+                    // src/php/Antlr/StringTemplate/Language/Group.g
                     $alt12=2;
                     $LA12_0 = $this->input->LA(1);
 
@@ -849,10 +870,10 @@ class GroupParser extends AntlrParser {
                     }
                     switch ($alt12) {
                         case 1 :
-                            // Group.g:210:8: COMMA defaultValuePair[mapping] 
+                            // src/php/Antlr/StringTemplate/Language/Group.g
                             {
-                            $this->match($this->input,$this->getToken('COMMA'),self::$FOLLOW_COMMA_in_mapPairs501); 
-                            $this->pushFollow(self::$FOLLOW_defaultValuePair_in_mapPairs503);
+                            $this->match($this->input,$this->getToken('COMMA'),self::$FOLLOW_COMMA_in_mapPairs506); 
+                            $this->pushFollow(self::$FOLLOW_defaultValuePair_in_mapPairs508);
                             $this->defaultValuePair(mapping);
 
                             $this->state->_fsp--;
@@ -867,9 +888,9 @@ class GroupParser extends AntlrParser {
                     }
                     break;
                 case 2 :
-                    // Group.g:211:7: defaultValuePair[mapping] 
+                    // src/php/Antlr/StringTemplate/Language/Group.g
                     {
-                    $this->pushFollow(self::$FOLLOW_defaultValuePair_in_mapPairs514);
+                    $this->pushFollow(self::$FOLLOW_defaultValuePair_in_mapPairs519);
                     $this->defaultValuePair(mapping);
 
                     $this->state->_fsp--;
@@ -887,15 +908,15 @@ class GroupParser extends AntlrParser {
         catch(Exception $e) {
             throw $e;
         }
-        
+
         return ;
     }
     // $ANTLR end "mapPairs"
 
 
     // $ANTLR start "defaultValuePair"
-    // Group.g:214:1: defaultValuePair[Map mapping] : 'default' COLON v= keyValue ; 
-    public function defaultValuePair(Map mapping){
+    // src/php/Antlr/StringTemplate/Language/Group.g
+    public function defaultValuePair($Map mapping){
         $v = null;
 
 
@@ -903,13 +924,13 @@ class GroupParser extends AntlrParser {
         StringTemplate v = null;
 
         try {
-            // Group.g:218:2: ( 'default' COLON v= keyValue ) 
-            // Group.g:218:4: 'default' COLON v= keyValue 
+            // src/php/Antlr/StringTemplate/Language/Group.g
+            // src/php/Antlr/StringTemplate/Language/Group.g
             {
-            $this->match($this->input,$this->getToken('27'),self::$FOLLOW_27_in_defaultValuePair538); 
-            $this->match($this->input,$this->getToken('COLON'),self::$FOLLOW_COLON_in_defaultValuePair540); 
-            $this->pushFollow(self::$FOLLOW_keyValue_in_defaultValuePair544);
-            $v=$this->keyValue();
+            $this->match($this->input,$this->getToken('27'),self::$FOLLOW_27_in_defaultValuePair543); 
+            $this->match($this->input,$this->getToken('COLON'),self::$FOLLOW_COLON_in_defaultValuePair545); 
+            $this->pushFollow(self::$FOLLOW_keyValue_in_defaultValuePair549);
+            $v = $this->keyValue();
 
             $this->state->_fsp--;
 
@@ -925,16 +946,16 @@ class GroupParser extends AntlrParser {
         catch(Exception $e) {
             throw $e;
         }
-        
+
         return ;
     }
     // $ANTLR end "defaultValuePair"
 
 
     // $ANTLR start "keyValuePair"
-    // Group.g:222:1: keyValuePair[Map mapping] : key= STRING COLON v= keyValue ; 
-    public function keyValuePair(Map mapping){
-        $key=null;
+    // src/php/Antlr/StringTemplate/Language/Group.g
+    public function keyValuePair($Map mapping){
+        $key = null;
         $v = null;
 
 
@@ -942,13 +963,13 @@ class GroupParser extends AntlrParser {
         StringTemplate v = null;
 
         try {
-            // Group.g:226:2: (key= STRING COLON v= keyValue ) 
-            // Group.g:226:4: key= STRING COLON v= keyValue 
+            // src/php/Antlr/StringTemplate/Language/Group.g
+            // src/php/Antlr/StringTemplate/Language/Group.g
             {
-            $key=$this->match($this->input,$this->getToken('STRING'),self::$FOLLOW_STRING_in_keyValuePair572); 
-            $this->match($this->input,$this->getToken('COLON'),self::$FOLLOW_COLON_in_keyValuePair574); 
-            $this->pushFollow(self::$FOLLOW_keyValue_in_keyValuePair578);
-            $v=$this->keyValue();
+            $key=$this->match($this->input,$this->getToken('STRING'),self::$FOLLOW_STRING_in_keyValuePair577); 
+            $this->match($this->input,$this->getToken('COLON'),self::$FOLLOW_COLON_in_keyValuePair579); 
+            $this->pushFollow(self::$FOLLOW_keyValue_in_keyValuePair583);
+            $v = $this->keyValue();
 
             $this->state->_fsp--;
 
@@ -964,23 +985,23 @@ class GroupParser extends AntlrParser {
         catch(Exception $e) {
             throw $e;
         }
-        
+
         return ;
     }
     // $ANTLR end "keyValuePair"
 
 
     // $ANTLR start "keyValue"
-    // Group.g:229:1: keyValue returns [StringTemplate value=null] : (s1= BIGSTRING | s2= STRING | k= ID {...}? | ); 
+    // src/php/Antlr/StringTemplate/Language/Group.g
     public function keyValue(){
         $value = null;
 
-        $s1=null;
-        $s2=null;
-        $k=null;
+        $s1 = null;
+        $s2 = null;
+        $k = null;
 
         try {
-            // Group.g:230:2: (s1= BIGSTRING | s2= STRING | k= ID {...}? | ) 
+            // src/php/Antlr/StringTemplate/Language/Group.g
             $alt14=4;
             $LA14 = $this->input->LA(1);
             if($this->getToken('BIGSTRING')== $LA14)
@@ -1008,34 +1029,34 @@ class GroupParser extends AntlrParser {
 
             switch ($alt14) {
                 case 1 :
-                    // Group.g:230:4: s1= BIGSTRING 
+                    // src/php/Antlr/StringTemplate/Language/Group.g
                     {
-                    $s1=$this->match($this->input,$this->getToken('BIGSTRING'),self::$FOLLOW_BIGSTRING_in_keyValue597); 
+                    $s1=$this->match($this->input,$this->getToken('BIGSTRING'),self::$FOLLOW_BIGSTRING_in_keyValue602); 
                       value = new StringTemplate(group,$s1->getText());
 
                     }
                     break;
                 case 2 :
-                    // Group.g:231:4: s2= STRING 
+                    // src/php/Antlr/StringTemplate/Language/Group.g
                     {
-                    $s2=$this->match($this->input,$this->getToken('STRING'),self::$FOLLOW_STRING_in_keyValue606); 
+                    $s2=$this->match($this->input,$this->getToken('STRING'),self::$FOLLOW_STRING_in_keyValue611); 
                       value = new StringTemplate(group,$s2->getText());
 
                     }
                     break;
                 case 3 :
-                    // Group.g:232:4: k= ID {...}? 
+                    // src/php/Antlr/StringTemplate/Language/Group.g
                     {
-                    $k=$this->match($this->input,$this->getToken('ID'),self::$FOLLOW_ID_in_keyValue616); 
+                    $k=$this->match($this->input,$this->getToken('ID'),self::$FOLLOW_ID_in_keyValue621); 
                     if ( !(($k->getText() == "key")) ) {
-                        throw new FailedPredicateException($this->input, "keyValue", "\\$k->getText() == \"key\"");
+                        throw new FailedPredicateException($this->input, "keyValue", '\\$k->getText() == \"key\"');
                     }
                       $value = ASTExpr::MAP_KEY_VALUE;
 
                     }
                     break;
                 case 4 :
-                    // Group.g:234:8:  
+                    // src/php/Antlr/StringTemplate/Language/Group.g
                     {
                       $value = null;
 
@@ -1051,7 +1072,7 @@ class GroupParser extends AntlrParser {
         catch(Exception $e) {
             throw $e;
         }
-        
+
         return $value;
     }
     // $ANTLR end "keyValue"
@@ -1059,66 +1080,8 @@ class GroupParser extends AntlrParser {
     // Delegated rules
 
 
-    
+
 }
 
  
-
-
-
-GroupParser::$FOLLOW_25_in_group66 = new Set(array(4));
-GroupParser::$FOLLOW_ID_in_group70 = new Set(array(5, 7, 26));
-GroupParser::$FOLLOW_COLON_in_group80 = new Set(array(4));
-GroupParser::$FOLLOW_ID_in_group84 = new Set(array(7, 26));
-GroupParser::$FOLLOW_26_in_group97 = new Set(array(4));
-GroupParser::$FOLLOW_ID_in_group101 = new Set(array(6, 7));
-GroupParser::$FOLLOW_COMMA_in_group112 = new Set(array(4));
-GroupParser::$FOLLOW_ID_in_group116 = new Set(array(6, 7));
-GroupParser::$FOLLOW_SEMI_in_group130 = new Set(array(4, 8));
-GroupParser::$FOLLOW_template_in_group135 = new Set(array(1, 4, 8));
-GroupParser::$FOLLOW_mapdef_in_group140 = new Set(array(1, 4, 8));
-GroupParser::$FOLLOW_AT_in_template169 = new Set(array(4));
-GroupParser::$FOLLOW_ID_in_template173 = new Set(array(9));
-GroupParser::$FOLLOW_DOT_in_template175 = new Set(array(4));
-GroupParser::$FOLLOW_ID_in_template179 = new Set(array(10));
-GroupParser::$FOLLOW_ID_in_template197 = new Set(array(10));
-GroupParser::$FOLLOW_LPAREN_in_template225 = new Set(array(4, 11));
-GroupParser::$FOLLOW_args_in_template237 = new Set(array(11));
-GroupParser::$FOLLOW_RPAREN_in_template248 = new Set(array(12));
-GroupParser::$FOLLOW_DEFINED_TO_BE_in_template255 = new Set(array(13, 14));
-GroupParser::$FOLLOW_STRING_in_template266 = new Set(array(1));
-GroupParser::$FOLLOW_BIGSTRING_in_template283 = new Set(array(1));
-GroupParser::$FOLLOW_ID_in_template302 = new Set(array(12));
-GroupParser::$FOLLOW_DEFINED_TO_BE_in_template304 = new Set(array(4));
-GroupParser::$FOLLOW_ID_in_template308 = new Set(array(1));
-GroupParser::$FOLLOW_arg_in_args330 = new Set(array(1, 6));
-GroupParser::$FOLLOW_COMMA_in_args335 = new Set(array(4));
-GroupParser::$FOLLOW_arg_in_args337 = new Set(array(1, 6));
-GroupParser::$FOLLOW_ID_in_arg360 = new Set(array(1, 15));
-GroupParser::$FOLLOW_ASSIGN_in_arg366 = new Set(array(13));
-GroupParser::$FOLLOW_STRING_in_arg370 = new Set(array(1));
-GroupParser::$FOLLOW_ASSIGN_in_arg381 = new Set(array(16));
-GroupParser::$FOLLOW_ANONYMOUS_TEMPLATE_in_arg385 = new Set(array(1));
-GroupParser::$FOLLOW_ID_in_mapdef430 = new Set(array(12));
-GroupParser::$FOLLOW_DEFINED_TO_BE_in_mapdef435 = new Set(array(17));
-GroupParser::$FOLLOW_map_in_mapdef439 = new Set(array(1));
-GroupParser::$FOLLOW_LBRACK_in_map461 = new Set(array(13, 27));
-GroupParser::$FOLLOW_mapPairs_in_map463 = new Set(array(18));
-GroupParser::$FOLLOW_RBRACK_in_map466 = new Set(array(1));
-GroupParser::$FOLLOW_keyValuePair_in_mapPairs483 = new Set(array(1, 6));
-GroupParser::$FOLLOW_COMMA_in_mapPairs487 = new Set(array(13));
-GroupParser::$FOLLOW_keyValuePair_in_mapPairs489 = new Set(array(1, 6));
-GroupParser::$FOLLOW_COMMA_in_mapPairs501 = new Set(array(13, 27));
-GroupParser::$FOLLOW_defaultValuePair_in_mapPairs503 = new Set(array(1));
-GroupParser::$FOLLOW_defaultValuePair_in_mapPairs514 = new Set(array(1));
-GroupParser::$FOLLOW_27_in_defaultValuePair538 = new Set(array(5));
-GroupParser::$FOLLOW_COLON_in_defaultValuePair540 = new Set(array(4, 13, 14));
-GroupParser::$FOLLOW_keyValue_in_defaultValuePair544 = new Set(array(1));
-GroupParser::$FOLLOW_STRING_in_keyValuePair572 = new Set(array(5));
-GroupParser::$FOLLOW_COLON_in_keyValuePair574 = new Set(array(4, 13, 14));
-GroupParser::$FOLLOW_keyValue_in_keyValuePair578 = new Set(array(1));
-GroupParser::$FOLLOW_BIGSTRING_in_keyValue597 = new Set(array(1));
-GroupParser::$FOLLOW_STRING_in_keyValue606 = new Set(array(1));
-GroupParser::$FOLLOW_ID_in_keyValue616 = new Set(array(1));
-
 ?>

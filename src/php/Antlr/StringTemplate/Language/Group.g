@@ -56,6 +56,9 @@ options {
     //charVocabulary = '\u0000'..'\uFFFE';
     //testLiterals=false;
 }
+@header {
+    namespace Antlr\StringTemplate\Language;
+}
 
 @parser::members {
     
@@ -248,9 +251,9 @@ STRING
 		(	'\\' '"'
 		|	'\\' ~'"'
 		|	{
-			String msg = "\\n in string";
-    		NoViableAltException e = new NoViableAltException("", 0, 0, input);
-			ErrorManager.syntaxError(ErrorType.SYNTAX_ERROR, getSourceName(), e, msg);
+			\$msg = "\\n in string";
+    		\$exception = new NoViableAltException("", 0, 0, input);
+			ErrorManager::syntaxError(ErrorType::SYNTAX_ERROR, \$this->getSourceName(), \$exception, \$msg);
 			}
 			'\n'
 		|	~('\\'|'"'|'\n')
@@ -267,8 +270,8 @@ BIGSTRING
 		)*
         '>>'
         {
-            String txt = getText().replaceAll("\\\\>",">");
-		    setText(txt);
+            \$txt = str_replace("\\\\>",">",\$this->getText());
+		    \$this->setText(\$txt);
 		}
 	;
 

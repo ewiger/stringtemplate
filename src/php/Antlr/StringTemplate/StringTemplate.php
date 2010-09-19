@@ -153,7 +153,7 @@ class StringTemplate {
      */
     public static function resetTemplateCounter()
     {
-        $this->templateCounter = 0;
+        self::$templateCounter = 0;
 
         return $this;
     }

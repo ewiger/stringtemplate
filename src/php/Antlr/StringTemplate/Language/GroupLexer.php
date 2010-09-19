@@ -1,38 +1,49 @@
 <?php
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 Group.g 2010-06-20 00:50:44
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 src/php/Antlr/StringTemplate/Language/Group.g 2010-09-19 15:00:57
 
 
-# for convenience in actions
-if (!defined('HIDDEN')) define('HIDDEN', BaseRecognizer::$HIDDEN);
+use Antlr\Runtime\IntStream;
+use Antlr\Runtime\DFA;
+use Antlr\Runtime\Parser;
+use Antlr\Runtime\Lexer;
+use Antlr\Runtime\CommonToken;
+use Antlr\Runtime\Set;
+use Antlr\Runtime\Token;
+use Antlr\Runtime\CharStream;
+use Antlr\Runtime\RecognizerSharedState;
+use Antlr\Runtime\ParserRuleReturnScope;
 
- 
+use Antlr\Runtime\EarlyExitException;
+use Antlr\Runtime\FailedPredicateException;
+use Antlr\Runtime\MismatchedRangeException;
+use Antlr\Runtime\MismatchedSetException;
+use Antlr\Runtime\MismatchedTokenException;
+use Antlr\Runtime\NoViableAltException;
+use Antlr\Runtime\RecognitionException;
+use Antlr\Runtime\UnwantedtokenException;
+
+
 function GroupLexer_DFA7_static(){
-    $eotS =
-        "\x1\xff\x3\x4\xb\xff\x1\x1b\x7\xff\x3\x4\x4\xff\x6\x4\x1\x27\x2".
-    "\x4\x1\xff\x3\x4\x1\x2d\x1\x4\x1\xff\x1\x4\x1\x30\x1\xff";
-    $eofS =
-        "\x31\xff";
-    $minS =
-        "\x1\x9\x1\x72\x1\x6d\x1\x65\xb\xff\x1\x3a\x5\xff\x1\x2a\x1\xff\x1".
-    "\x6f\x1\x70\x1\x66\x4\xff\x1\x75\x1\x6c\x1\x61\x1\x70\x1\x65\x1\x75".
-    "\x1\x2d\x1\x6d\x1\x6c\x1\xff\x1\x65\x1\x74\x1\x6e\x1\x2d\x1\x74\x1\xff".
+    $eot = "\x1\xff\x3\x4\xb\xff\x1\x1b\x7\xff\x3\x4\x4\xff\x6\x4\x1\x27" .
+    "\x2\x4\x1\xff\x3\x4\x1\x2d\x1\x4\x1\xff\x1\x4\x1\x30\x1\xff";
+    $eof = "\x31\xff";
+    $min = "\x1\x9\x1\x72\x1\x6d\x1\x65\xb\xff\x1\x3a\x5\xff\x1\x2a\x1\xff" .
+    "\x1\x6f\x1\x70\x1\x66\x4\xff\x1\x75\x1\x6c\x1\x61\x1\x70\x1\x65\x1\x75" .
+    "\x1\x2d\x1\x6d\x1\x6c\x1\xff\x1\x65\x1\x74\x1\x6e\x1\x2d\x1\x74\x1\xff" .
     "\x1\x73\x1\x2d\x1\xff";
-    $maxS =
-        "\x1\x7b\x1\x72\x1\x6d\x1\x65\xb\xff\x1\x3a\x5\xff\x1\x2f\x1\xff".
-    "\x1\x6f\x1\x70\x1\x66\x4\xff\x1\x75\x1\x6c\x1\x61\x1\x70\x1\x65\x1\x75".
-    "\x1\x7a\x1\x6d\x1\x6c\x1\xff\x1\x65\x1\x74\x1\x6e\x1\x7a\x1\x74\x1\xff".
+    $max = "\x1\x7b\x1\x72\x1\x6d\x1\x65\xb\xff\x1\x3a\x5\xff\x1\x2f\x1\xff" .
+    "\x1\x6f\x1\x70\x1\x66\x4\xff\x1\x75\x1\x6c\x1\x61\x1\x70\x1\x65\x1\x75" .
+    "\x1\x7a\x1\x6d\x1\x6c\x1\xff\x1\x65\x1\x74\x1\x6e\x1\x7a\x1\x74\x1\xff" .
     "\x1\x73\x1\x7a\x1\xff";
-    $acceptS =
-        "\x4\xff\x1\x4\x1\x5\x1\x6\x1\x7\x1\x8\x1\x9\x1\xa\x1\xb\x1\xc\x1".
-    "\xd\x1\xe\x1\xff\x1\x10\x1\x12\x1\x13\x1\x14\x1\x15\x1\xff\x1\x18\x3".
-    "\xff\x1\xf\x1\x11\x1\x16\x1\x17\x9\xff\x1\x1\x5\xff\x1\x3\x2\xff\x1".
-    "\x2";
-    $specialS =
-        "\x31\xff}>";
+    $accept = "\x4\xff\x1\x4\x1\x5\x1\x6\x1\x7\x1\x8\x1\x9\x1\xa\x1\xb\x1" .
+    "\xc\x1\xd\x1\xe\x1\xff\x1\x10\x1\x12\x1\x13\x1\x14\x1\x15\x1\xff\x1" .
+    "\x18\x3\xff\x1\xf\x1\x11\x1\x16\x1\x17\x9\xff\x1\x1\x5\xff\x1\x3\x2" .
+    "\xff\x1\x2";
+    $special = "\x31\xff";
     $transitionS = array(
-        "\x2\x16\x2\xff\x1\x16\x12\xff\x1\x16\x1\xff\x1\x5\x5\xff\x1\x9\x1".
-        "\xa\x1\x11\x1\x12\x1\xd\x1\xff\x1\xe\x1\x15\xa\xff\x1\xf\x1\x10".
-        "\x1\x6\x1\x13\x1\xff\x1\x14\x1\x8\x1a\x4\x1\xb\x1\xff\x1\xc\x1\xff".
+        "\x2\x16\x2\xff\x1\x16\x12\xff\x1\x16\x1\xff\x1\x5\x5\xff\x1\x9\x1" .
+        "\xa\x1\x11\x1\x12\x1\xd\x1\xff\x1\xe\x1\x15\xa\xff\x1\xf\x1\x10" .
+        "\x1\x6\x1\x13\x1\xff\x1\x14\x1\x8\x1a\x4\x1\xb\x1\xff\x1\xc\x1\xff" .
         "\x1\x4\x1\xff\x3\x4\x1\x3\x2\x4\x1\x1\x1\x4\x1\x2\x11\x4\x1\x7",
         "\x1\x17",
         "\x1\x18",
@@ -83,71 +94,75 @@ function GroupLexer_DFA7_static(){
         "\x1\x4\x2\xff\xa\x4\x7\xff\x1a\x4\x4\xff\x1\x4\x1\xff\x1a\x4",
         ""
     );
+
     $arr = array();
-    $arr['eot'] = DFA::unpackEncodedString($eotS);
-    $arr['eof'] = DFA::unpackEncodedString($eofS);
-    $arr['min'] = DFA::unpackEncodedString($minS);
-    $arr['max'] = DFA::unpackEncodedString($maxS);
-    $arr['accept'] = DFA::unpackEncodedString($acceptS);
-    $arr['special'] = DFA::unpackEncodedString($specialS);
+    $arr['eot'] = DFA::unpackRLE($eot);
+    $arr['eof'] = DFA::unpackRLE($eof);
+    $arr['min'] = DFA::unpackRLE($min, true);
+    $arr['max'] = DFA::unpackRLE($max, true);
+    $arr['accept'] = DFA::unpackRLE($accept);
+    $arr['special'] = DFA::unpackRLE($special);
 
 
     $numStates = sizeof($transitionS);
     $arr['transition'] = array();
     for ($i=0; $i<$numStates; $i++) {
-        $arr['transition'][$i] = DFA::unpackEncodedString($transitionS[$i]);
+        $arr['transition'][$i] = DFA::unpackRLE($transitionS[$i]);
     }
     return $arr;
 }
-$GroupLexer_DFA7 = GroupLexer_DFA7_static();
 
 class GroupLexer_DFA7 extends DFA {
 
+    private static $DFA = null;
+
     public function __construct($recognizer) {
-        global $GroupLexer_DFA7;
-        $DFA = $GroupLexer_DFA7;
+        if (self::$DFA === null) {
+            self::$DFA = GroupLexer_DFA7_static();
+        }
+
         $this->recognizer = $recognizer;
         $this->decisionNumber = 7;
-        $this->eot = $DFA['eot'];
-        $this->eof = $DFA['eof'];
-        $this->min = $DFA['min'];
-        $this->max = $DFA['max'];
-        $this->accept = $DFA['accept'];
-        $this->special = $DFA['special'];
-        $this->transition = $DFA['transition'];
+        $this->eot = self::$DFA['eot'];
+        $this->eof = self::$DFA['eof'];
+        $this->min = self::$DFA['min'];
+        $this->max = self::$DFA['max'];
+        $this->accept = self::$DFA['accept'];
+        $this->special = self::$DFA['special'];
+        $this->transition = self::$DFA['transition'];
     }
     public function getDescription() {
         return "1:1: Tokens : ( T__25 | T__26 | T__27 | ID | STRING | BIGSTRING | ANONYMOUS_TEMPLATE | AT | LPAREN | RPAREN | LBRACK | RBRACK | COMMA | DOT | DEFINED_TO_BE | SEMI | COLON | STAR | PLUS | ASSIGN | OPTIONAL | COMMENT | LINE_COMMENT | WS );";
     }
 }
-      
+ 
 
-class GroupLexer extends AntlrLexer {
-    static $RBRACK=18;
-    static $LBRACK=17;
-    static $STAR=19;
-    static $T__27=27;
-    static $T__26=26;
-    static $LINE_COMMENT=23;
-    static $T__25=25;
-    static $ANONYMOUS_TEMPLATE=16;
-    static $ID=4;
-    static $EOF=-1;
-    static $SEMI=7;
-    static $LPAREN=10;
-    static $OPTIONAL=21;
-    static $COLON=5;
-    static $AT=8;
-    static $RPAREN=11;
-    static $WS=24;
-    static $DEFINED_TO_BE=12;
-    static $COMMA=6;
-    static $ASSIGN=15;
-    static $BIGSTRING=14;
-    static $PLUS=20;
-    static $DOT=9;
-    static $COMMENT=22;
-    static $STRING=13;
+class GroupLexer extends Lexer {
+    const T_RBRACK=18;
+    const T_LBRACK=17;
+    const T_STAR=19;
+    const T_T__27=27;
+    const T_T__26=26;
+    const T_LINE_COMMENT=23;
+    const T_T__25=25;
+    const T_ANONYMOUS_TEMPLATE=16;
+    const T_ID=4;
+    const T_EOF=-1;
+    const T_SEMI=7;
+    const T_LPAREN=10;
+    const T_OPTIONAL=21;
+    const T_COLON=5;
+    const T_AT=8;
+    const T_RPAREN=11;
+    const T_WS=24;
+    const T_DEFINED_TO_BE=12;
+    const T_COMMA=6;
+    const T_ASSIGN=15;
+    const T_BIGSTRING=14;
+    const T_PLUS=20;
+    const T_DOT=9;
+    const T_COMMENT=22;
+    const T_STRING=13;
 
     // delegates
     // delegators
@@ -155,18 +170,18 @@ class GroupLexer extends AntlrLexer {
     function __construct($input, $state=null){
         parent::__construct($input,$state);
 
-        
+
             $this->dfa7 = new GroupLexer_DFA7($this);
     }
-    function getGrammarFileName() { return "Group.g"; }
+    function getGrammarFileName() { return "src/php/Antlr/StringTemplate/Language/Group.g"; }
 
     // $ANTLR start "T__25"
     function mT__25(){
         try {
-            $_type = GroupLexer::$T__25;
-            $_channel = GroupLexer::$DEFAULT_TOKEN_CHANNEL;
-            // Group.g:7:7: ( 'group' ) 
-            // Group.g:7:9: 'group' 
+            $_type = GroupLexer::T_T__25;
+            $_channel = GroupLexer::DEFAULT_TOKEN_CHANNEL;
+            // src/php/Antlr/StringTemplate/Language/Group.g
+            // src/php/Antlr/StringTemplate/Language/Group.g
             {
             $this->matchString("group"); 
 
@@ -185,10 +200,10 @@ class GroupLexer extends AntlrLexer {
     // $ANTLR start "T__26"
     function mT__26(){
         try {
-            $_type = GroupLexer::$T__26;
-            $_channel = GroupLexer::$DEFAULT_TOKEN_CHANNEL;
-            // Group.g:8:7: ( 'implements' ) 
-            // Group.g:8:9: 'implements' 
+            $_type = GroupLexer::T_T__26;
+            $_channel = GroupLexer::DEFAULT_TOKEN_CHANNEL;
+            // src/php/Antlr/StringTemplate/Language/Group.g
+            // src/php/Antlr/StringTemplate/Language/Group.g
             {
             $this->matchString("implements"); 
 
@@ -207,10 +222,10 @@ class GroupLexer extends AntlrLexer {
     // $ANTLR start "T__27"
     function mT__27(){
         try {
-            $_type = GroupLexer::$T__27;
-            $_channel = GroupLexer::$DEFAULT_TOKEN_CHANNEL;
-            // Group.g:9:7: ( 'default' ) 
-            // Group.g:9:9: 'default' 
+            $_type = GroupLexer::T_T__27;
+            $_channel = GroupLexer::DEFAULT_TOKEN_CHANNEL;
+            // src/php/Antlr/StringTemplate/Language/Group.g
+            // src/php/Antlr/StringTemplate/Language/Group.g
             {
             $this->matchString("default"); 
 
@@ -229,21 +244,20 @@ class GroupLexer extends AntlrLexer {
     // $ANTLR start "ID"
     function mID(){
         try {
-            $_type = GroupLexer::$ID;
-            $_channel = GroupLexer::$DEFAULT_TOKEN_CHANNEL;
-            // Group.g:242:5: ( ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '-' | '_' )* ) 
-            // Group.g:242:7: ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '-' | '_' )* 
+            $_type = GroupLexer::T_ID;
+            $_channel = GroupLexer::DEFAULT_TOKEN_CHANNEL;
+            // src/php/Antlr/StringTemplate/Language/Group.g
+            // src/php/Antlr/StringTemplate/Language/Group.g
             {
             if ( ($this->input->LA(1)>=$this->getToken('65') && $this->input->LA(1)<=$this->getToken('90'))||$this->input->LA(1)==$this->getToken('95')||($this->input->LA(1)>=$this->getToken('97') && $this->input->LA(1)<=$this->getToken('122')) ) {
                 $this->input->consume();
 
-            }
-            else {
+            } else {
                 $mse = new MismatchedSetException(null,$this->input);
                 $this->recover($mse);
                 throw $mse;}
 
-            // Group.g:242:31: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '-' | '_' )* 
+            // src/php/Antlr/StringTemplate/Language/Group.g
             //loop1:
             do {
                 $alt1=2;
@@ -256,13 +270,12 @@ class GroupLexer extends AntlrLexer {
 
                 switch ($alt1) {
             	case 1 :
-            	    // Group.g: 
+            	    // src/php/Antlr/StringTemplate/Language/Group.g
             	    {
             	    if ( $this->input->LA(1)==$this->getToken('45')||($this->input->LA(1)>=$this->getToken('48') && $this->input->LA(1)<=$this->getToken('57'))||($this->input->LA(1)>=$this->getToken('65') && $this->input->LA(1)<=$this->getToken('90'))||$this->input->LA(1)==$this->getToken('95')||($this->input->LA(1)>=$this->getToken('97') && $this->input->LA(1)<=$this->getToken('122')) ) {
             	        $this->input->consume();
 
-            	    }
-            	    else {
+            	    } else {
             	        $mse = new MismatchedSetException(null,$this->input);
             	        $this->recover($mse);
             	        throw $mse;}
@@ -291,13 +304,13 @@ class GroupLexer extends AntlrLexer {
     // $ANTLR start "STRING"
     function mSTRING(){
         try {
-            $_type = GroupLexer::$STRING;
-            $_channel = GroupLexer::$DEFAULT_TOKEN_CHANNEL;
-            // Group.g:246:2: ( '\"' ( '\\\\' '\"' | '\\\\' ~ '\"' | '\\n' | ~ ( '\\\\' | '\"' | '\\n' ) )* '\"' ) 
-            // Group.g:246:4: '\"' ( '\\\\' '\"' | '\\\\' ~ '\"' | '\\n' | ~ ( '\\\\' | '\"' | '\\n' ) )* '\"' 
+            $_type = GroupLexer::T_STRING;
+            $_channel = GroupLexer::DEFAULT_TOKEN_CHANNEL;
+            // src/php/Antlr/StringTemplate/Language/Group.g
+            // src/php/Antlr/StringTemplate/Language/Group.g
             {
             $this->matchChar(34); 
-            // Group.g:247:3: ( '\\\\' '\"' | '\\\\' ~ '\"' | '\\n' | ~ ( '\\\\' | '\"' | '\\n' ) )* 
+            // src/php/Antlr/StringTemplate/Language/Group.g
             //loop2:
             do {
                 $alt2=5;
@@ -325,7 +338,7 @@ class GroupLexer extends AntlrLexer {
 
                 switch ($alt2) {
             	case 1 :
-            	    // Group.g:247:5: '\\\\' '\"' 
+            	    // src/php/Antlr/StringTemplate/Language/Group.g
             	    {
             	    $this->matchChar(92); 
             	    $this->matchChar(34); 
@@ -333,14 +346,13 @@ class GroupLexer extends AntlrLexer {
             	    }
             	    break;
             	case 2 :
-            	    // Group.g:248:5: '\\\\' ~ '\"' 
+            	    // src/php/Antlr/StringTemplate/Language/Group.g
             	    {
             	    $this->matchChar(92); 
             	    if ( ($this->input->LA(1)>=$this->getToken('0') && $this->input->LA(1)<=$this->getToken('33'))||($this->input->LA(1)>=$this->getToken('35') && $this->input->LA(1)<=$this->getToken('65535')) ) {
             	        $this->input->consume();
 
-            	    }
-            	    else {
+            	    } else {
             	        $mse = new MismatchedSetException(null,$this->input);
             	        $this->recover($mse);
             	        throw $mse;}
@@ -349,25 +361,24 @@ class GroupLexer extends AntlrLexer {
             	    }
             	    break;
             	case 3 :
-            	    // Group.g:249:5: '\\n' 
+            	    // src/php/Antlr/StringTemplate/Language/Group.g
             	    {
 
-            	      			String msg = "\\n in string";
-            	          		NoViableAltException e = new NoViableAltException("", 0, 0, input);
-            	      			ErrorManager.syntaxError(ErrorType.SYNTAX_ERROR, getSourceName(), e, msg);
+            	      			$msg = "\\n in string";
+            	          		$exception = new NoViableAltException("", 0, 0, input);
+            	      			ErrorManager::syntaxError(ErrorType::SYNTAX_ERROR, $this->getSourceName(), $exception, $msg);
             	      			
             	    $this->matchChar(10); 
 
             	    }
             	    break;
             	case 4 :
-            	    // Group.g:255:5: ~ ( '\\\\' | '\"' | '\\n' ) 
+            	    // src/php/Antlr/StringTemplate/Language/Group.g
             	    {
             	    if ( ($this->input->LA(1)>=$this->getToken('0') && $this->input->LA(1)<=$this->getToken('9'))||($this->input->LA(1)>=$this->getToken('11') && $this->input->LA(1)<=$this->getToken('33'))||($this->input->LA(1)>=$this->getToken('35') && $this->input->LA(1)<=$this->getToken('91'))||($this->input->LA(1)>=$this->getToken('93') && $this->input->LA(1)<=$this->getToken('65535')) ) {
             	        $this->input->consume();
 
-            	    }
-            	    else {
+            	    } else {
             	        $mse = new MismatchedSetException(null,$this->input);
             	        $this->recover($mse);
             	        throw $mse;}
@@ -397,14 +408,14 @@ class GroupLexer extends AntlrLexer {
     // $ANTLR start "BIGSTRING"
     function mBIGSTRING(){
         try {
-            $_type = GroupLexer::$BIGSTRING;
-            $_channel = GroupLexer::$DEFAULT_TOKEN_CHANNEL;
-            // Group.g:261:2: ( '<<' ( options {greedy=false; } : '\\\\' '>' | '\\\\' ~ '>' | ~ '\\\\' )* '>>' ) 
-            // Group.g:261:4: '<<' ( options {greedy=false; } : '\\\\' '>' | '\\\\' ~ '>' | ~ '\\\\' )* '>>' 
+            $_type = GroupLexer::T_BIGSTRING;
+            $_channel = GroupLexer::DEFAULT_TOKEN_CHANNEL;
+            // src/php/Antlr/StringTemplate/Language/Group.g
+            // src/php/Antlr/StringTemplate/Language/Group.g
             {
             $this->matchString("<<"); 
 
-            // Group.g:262:3: ( options {greedy=false; } : '\\\\' '>' | '\\\\' ~ '>' | ~ '\\\\' )* 
+            // src/php/Antlr/StringTemplate/Language/Group.g
             //loop3:
             do {
                 $alt3=4;
@@ -441,7 +452,7 @@ class GroupLexer extends AntlrLexer {
 
                 switch ($alt3) {
             	case 1 :
-            	    // Group.g:263:5: '\\\\' '>' 
+            	    // src/php/Antlr/StringTemplate/Language/Group.g
             	    {
             	    $this->matchChar(92); 
             	    $this->matchChar(62); 
@@ -449,14 +460,13 @@ class GroupLexer extends AntlrLexer {
             	    }
             	    break;
             	case 2 :
-            	    // Group.g:264:5: '\\\\' ~ '>' 
+            	    // src/php/Antlr/StringTemplate/Language/Group.g
             	    {
             	    $this->matchChar(92); 
             	    if ( ($this->input->LA(1)>=$this->getToken('0') && $this->input->LA(1)<=$this->getToken('61'))||($this->input->LA(1)>=$this->getToken('63') && $this->input->LA(1)<=$this->getToken('65535')) ) {
             	        $this->input->consume();
 
-            	    }
-            	    else {
+            	    } else {
             	        $mse = new MismatchedSetException(null,$this->input);
             	        $this->recover($mse);
             	        throw $mse;}
@@ -465,13 +475,12 @@ class GroupLexer extends AntlrLexer {
             	    }
             	    break;
             	case 3 :
-            	    // Group.g:265:5: ~ '\\\\' 
+            	    // src/php/Antlr/StringTemplate/Language/Group.g
             	    {
             	    if ( ($this->input->LA(1)>=$this->getToken('0') && $this->input->LA(1)<=$this->getToken('91'))||($this->input->LA(1)>=$this->getToken('93') && $this->input->LA(1)<=$this->getToken('65535')) ) {
             	        $this->input->consume();
 
-            	    }
-            	    else {
+            	    } else {
             	        $mse = new MismatchedSetException(null,$this->input);
             	        $this->recover($mse);
             	        throw $mse;}
@@ -488,8 +497,8 @@ class GroupLexer extends AntlrLexer {
             $this->matchString(">>"); 
 
 
-                          String txt = getText().replaceAll("\\\\>",">");
-              		    setText(txt);
+                          $txt = str_replace("\\\\>",">",$this->getText());
+              		    $this->setText($txt);
               		
 
             }
@@ -506,10 +515,10 @@ class GroupLexer extends AntlrLexer {
     // $ANTLR start "ANONYMOUS_TEMPLATE"
     function mANONYMOUS_TEMPLATE(){
         try {
-            $_type = GroupLexer::$ANONYMOUS_TEMPLATE;
-            $_channel = GroupLexer::$DEFAULT_TOKEN_CHANNEL;
-            // Group.g:279:2: ( '{' '}' ) 
-            // Group.g:279:4: '{' '}' 
+            $_type = GroupLexer::T_ANONYMOUS_TEMPLATE;
+            $_channel = GroupLexer::DEFAULT_TOKEN_CHANNEL;
+            // src/php/Antlr/StringTemplate/Language/Group.g
+            // src/php/Antlr/StringTemplate/Language/Group.g
             {
             $this->matchChar(123); 
             $this->matchChar(125); 
@@ -528,10 +537,10 @@ class GroupLexer extends AntlrLexer {
     // $ANTLR start "AT"
     function mAT(){
         try {
-            $_type = GroupLexer::$AT;
-            $_channel = GroupLexer::$DEFAULT_TOKEN_CHANNEL;
-            // Group.g:293:4: ( '@' ) 
-            // Group.g:293:6: '@' 
+            $_type = GroupLexer::T_AT;
+            $_channel = GroupLexer::DEFAULT_TOKEN_CHANNEL;
+            // src/php/Antlr/StringTemplate/Language/Group.g
+            // src/php/Antlr/StringTemplate/Language/Group.g
             {
             $this->matchChar(64); 
 
@@ -549,10 +558,10 @@ class GroupLexer extends AntlrLexer {
     // $ANTLR start "LPAREN"
     function mLPAREN(){
         try {
-            $_type = GroupLexer::$LPAREN;
-            $_channel = GroupLexer::$DEFAULT_TOKEN_CHANNEL;
-            // Group.g:294:7: ( '(' ) 
-            // Group.g:294:9: '(' 
+            $_type = GroupLexer::T_LPAREN;
+            $_channel = GroupLexer::DEFAULT_TOKEN_CHANNEL;
+            // src/php/Antlr/StringTemplate/Language/Group.g
+            // src/php/Antlr/StringTemplate/Language/Group.g
             {
             $this->matchChar(40); 
 
@@ -570,10 +579,10 @@ class GroupLexer extends AntlrLexer {
     // $ANTLR start "RPAREN"
     function mRPAREN(){
         try {
-            $_type = GroupLexer::$RPAREN;
-            $_channel = GroupLexer::$DEFAULT_TOKEN_CHANNEL;
-            // Group.g:295:7: ( ')' ) 
-            // Group.g:295:9: ')' 
+            $_type = GroupLexer::T_RPAREN;
+            $_channel = GroupLexer::DEFAULT_TOKEN_CHANNEL;
+            // src/php/Antlr/StringTemplate/Language/Group.g
+            // src/php/Antlr/StringTemplate/Language/Group.g
             {
             $this->matchChar(41); 
 
@@ -591,10 +600,10 @@ class GroupLexer extends AntlrLexer {
     // $ANTLR start "LBRACK"
     function mLBRACK(){
         try {
-            $_type = GroupLexer::$LBRACK;
-            $_channel = GroupLexer::$DEFAULT_TOKEN_CHANNEL;
-            // Group.g:296:7: ( '[' ) 
-            // Group.g:296:9: '[' 
+            $_type = GroupLexer::T_LBRACK;
+            $_channel = GroupLexer::DEFAULT_TOKEN_CHANNEL;
+            // src/php/Antlr/StringTemplate/Language/Group.g
+            // src/php/Antlr/StringTemplate/Language/Group.g
             {
             $this->matchChar(91); 
 
@@ -612,10 +621,10 @@ class GroupLexer extends AntlrLexer {
     // $ANTLR start "RBRACK"
     function mRBRACK(){
         try {
-            $_type = GroupLexer::$RBRACK;
-            $_channel = GroupLexer::$DEFAULT_TOKEN_CHANNEL;
-            // Group.g:297:7: ( ']' ) 
-            // Group.g:297:9: ']' 
+            $_type = GroupLexer::T_RBRACK;
+            $_channel = GroupLexer::DEFAULT_TOKEN_CHANNEL;
+            // src/php/Antlr/StringTemplate/Language/Group.g
+            // src/php/Antlr/StringTemplate/Language/Group.g
             {
             $this->matchChar(93); 
 
@@ -633,10 +642,10 @@ class GroupLexer extends AntlrLexer {
     // $ANTLR start "COMMA"
     function mCOMMA(){
         try {
-            $_type = GroupLexer::$COMMA;
-            $_channel = GroupLexer::$DEFAULT_TOKEN_CHANNEL;
-            // Group.g:298:6: ( ',' ) 
-            // Group.g:298:9: ',' 
+            $_type = GroupLexer::T_COMMA;
+            $_channel = GroupLexer::DEFAULT_TOKEN_CHANNEL;
+            // src/php/Antlr/StringTemplate/Language/Group.g
+            // src/php/Antlr/StringTemplate/Language/Group.g
             {
             $this->matchChar(44); 
 
@@ -654,10 +663,10 @@ class GroupLexer extends AntlrLexer {
     // $ANTLR start "DOT"
     function mDOT(){
         try {
-            $_type = GroupLexer::$DOT;
-            $_channel = GroupLexer::$DEFAULT_TOKEN_CHANNEL;
-            // Group.g:299:4: ( '.' ) 
-            // Group.g:299:7: '.' 
+            $_type = GroupLexer::T_DOT;
+            $_channel = GroupLexer::DEFAULT_TOKEN_CHANNEL;
+            // src/php/Antlr/StringTemplate/Language/Group.g
+            // src/php/Antlr/StringTemplate/Language/Group.g
             {
             $this->matchChar(46); 
 
@@ -675,10 +684,10 @@ class GroupLexer extends AntlrLexer {
     // $ANTLR start "DEFINED_TO_BE"
     function mDEFINED_TO_BE(){
         try {
-            $_type = GroupLexer::$DEFINED_TO_BE;
-            $_channel = GroupLexer::$DEFAULT_TOKEN_CHANNEL;
-            // Group.g:300:14: ( '::=' ) 
-            // Group.g:300:17: '::=' 
+            $_type = GroupLexer::T_DEFINED_TO_BE;
+            $_channel = GroupLexer::DEFAULT_TOKEN_CHANNEL;
+            // src/php/Antlr/StringTemplate/Language/Group.g
+            // src/php/Antlr/StringTemplate/Language/Group.g
             {
             $this->matchString("::="); 
 
@@ -697,10 +706,10 @@ class GroupLexer extends AntlrLexer {
     // $ANTLR start "SEMI"
     function mSEMI(){
         try {
-            $_type = GroupLexer::$SEMI;
-            $_channel = GroupLexer::$DEFAULT_TOKEN_CHANNEL;
-            // Group.g:301:5: ( ';' ) 
-            // Group.g:301:9: ';' 
+            $_type = GroupLexer::T_SEMI;
+            $_channel = GroupLexer::DEFAULT_TOKEN_CHANNEL;
+            // src/php/Antlr/StringTemplate/Language/Group.g
+            // src/php/Antlr/StringTemplate/Language/Group.g
             {
             $this->matchChar(59); 
 
@@ -718,10 +727,10 @@ class GroupLexer extends AntlrLexer {
     // $ANTLR start "COLON"
     function mCOLON(){
         try {
-            $_type = GroupLexer::$COLON;
-            $_channel = GroupLexer::$DEFAULT_TOKEN_CHANNEL;
-            // Group.g:302:6: ( ':' ) 
-            // Group.g:302:9: ':' 
+            $_type = GroupLexer::T_COLON;
+            $_channel = GroupLexer::DEFAULT_TOKEN_CHANNEL;
+            // src/php/Antlr/StringTemplate/Language/Group.g
+            // src/php/Antlr/StringTemplate/Language/Group.g
             {
             $this->matchChar(58); 
 
@@ -739,10 +748,10 @@ class GroupLexer extends AntlrLexer {
     // $ANTLR start "STAR"
     function mSTAR(){
         try {
-            $_type = GroupLexer::$STAR;
-            $_channel = GroupLexer::$DEFAULT_TOKEN_CHANNEL;
-            // Group.g:303:5: ( '*' ) 
-            // Group.g:303:9: '*' 
+            $_type = GroupLexer::T_STAR;
+            $_channel = GroupLexer::DEFAULT_TOKEN_CHANNEL;
+            // src/php/Antlr/StringTemplate/Language/Group.g
+            // src/php/Antlr/StringTemplate/Language/Group.g
             {
             $this->matchChar(42); 
 
@@ -760,10 +769,10 @@ class GroupLexer extends AntlrLexer {
     // $ANTLR start "PLUS"
     function mPLUS(){
         try {
-            $_type = GroupLexer::$PLUS;
-            $_channel = GroupLexer::$DEFAULT_TOKEN_CHANNEL;
-            // Group.g:304:5: ( '+' ) 
-            // Group.g:304:9: '+' 
+            $_type = GroupLexer::T_PLUS;
+            $_channel = GroupLexer::DEFAULT_TOKEN_CHANNEL;
+            // src/php/Antlr/StringTemplate/Language/Group.g
+            // src/php/Antlr/StringTemplate/Language/Group.g
             {
             $this->matchChar(43); 
 
@@ -781,10 +790,10 @@ class GroupLexer extends AntlrLexer {
     // $ANTLR start "ASSIGN"
     function mASSIGN(){
         try {
-            $_type = GroupLexer::$ASSIGN;
-            $_channel = GroupLexer::$DEFAULT_TOKEN_CHANNEL;
-            // Group.g:305:7: ( '=' ) 
-            // Group.g:305:11: '=' 
+            $_type = GroupLexer::T_ASSIGN;
+            $_channel = GroupLexer::DEFAULT_TOKEN_CHANNEL;
+            // src/php/Antlr/StringTemplate/Language/Group.g
+            // src/php/Antlr/StringTemplate/Language/Group.g
             {
             $this->matchChar(61); 
 
@@ -802,10 +811,10 @@ class GroupLexer extends AntlrLexer {
     // $ANTLR start "OPTIONAL"
     function mOPTIONAL(){
         try {
-            $_type = GroupLexer::$OPTIONAL;
-            $_channel = GroupLexer::$DEFAULT_TOKEN_CHANNEL;
-            // Group.g:306:10: ( '?' ) 
-            // Group.g:306:12: '?' 
+            $_type = GroupLexer::T_OPTIONAL;
+            $_channel = GroupLexer::DEFAULT_TOKEN_CHANNEL;
+            // src/php/Antlr/StringTemplate/Language/Group.g
+            // src/php/Antlr/StringTemplate/Language/Group.g
             {
             $this->matchChar(63); 
 
@@ -823,14 +832,14 @@ class GroupLexer extends AntlrLexer {
     // $ANTLR start "COMMENT"
     function mCOMMENT(){
         try {
-            $_type = GroupLexer::$COMMENT;
-            $_channel = GroupLexer::$DEFAULT_TOKEN_CHANNEL;
-            // Group.g:309:5: ( '/*' ( options {greedy=false; } : . )* '*/' ) 
-            // Group.g:309:9: '/*' ( options {greedy=false; } : . )* '*/' 
+            $_type = GroupLexer::T_COMMENT;
+            $_channel = GroupLexer::DEFAULT_TOKEN_CHANNEL;
+            // src/php/Antlr/StringTemplate/Language/Group.g
+            // src/php/Antlr/StringTemplate/Language/Group.g
             {
             $this->matchString("/*"); 
 
-            // Group.g:309:14: ( options {greedy=false; } : . )* 
+            // src/php/Antlr/StringTemplate/Language/Group.g
             //loop4:
             do {
                 $alt4=2;
@@ -855,7 +864,7 @@ class GroupLexer extends AntlrLexer {
 
                 switch ($alt4) {
             	case 1 :
-            	    // Group.g:309:42: . 
+            	    // src/php/Antlr/StringTemplate/Language/Group.g
             	    {
             	    $this->matchAny(); 
 
@@ -885,14 +894,14 @@ class GroupLexer extends AntlrLexer {
     // $ANTLR start "LINE_COMMENT"
     function mLINE_COMMENT(){
         try {
-            $_type = GroupLexer::$LINE_COMMENT;
-            $_channel = GroupLexer::$DEFAULT_TOKEN_CHANNEL;
-            // Group.g:313:5: ( '//' (~ ( '\\n' | '\\r' ) )* ( '\\r' )? '\\n' ) 
-            // Group.g:313:7: '//' (~ ( '\\n' | '\\r' ) )* ( '\\r' )? '\\n' 
+            $_type = GroupLexer::T_LINE_COMMENT;
+            $_channel = GroupLexer::DEFAULT_TOKEN_CHANNEL;
+            // src/php/Antlr/StringTemplate/Language/Group.g
+            // src/php/Antlr/StringTemplate/Language/Group.g
             {
             $this->matchString("//"); 
 
-            // Group.g:313:12: (~ ( '\\n' | '\\r' ) )* 
+            // src/php/Antlr/StringTemplate/Language/Group.g
             //loop5:
             do {
                 $alt5=2;
@@ -905,13 +914,12 @@ class GroupLexer extends AntlrLexer {
 
                 switch ($alt5) {
             	case 1 :
-            	    // Group.g:313:12: ~ ( '\\n' | '\\r' ) 
+            	    // src/php/Antlr/StringTemplate/Language/Group.g
             	    {
             	    if ( ($this->input->LA(1)>=$this->getToken('0') && $this->input->LA(1)<=$this->getToken('9'))||($this->input->LA(1)>=$this->getToken('11') && $this->input->LA(1)<=$this->getToken('12'))||($this->input->LA(1)>=$this->getToken('14') && $this->input->LA(1)<=$this->getToken('65535')) ) {
             	        $this->input->consume();
 
-            	    }
-            	    else {
+            	    } else {
             	        $mse = new MismatchedSetException(null,$this->input);
             	        $this->recover($mse);
             	        throw $mse;}
@@ -925,7 +933,7 @@ class GroupLexer extends AntlrLexer {
                 }
             } while (true);
 
-            // Group.g:313:26: ( '\\r' )? 
+            // src/php/Antlr/StringTemplate/Language/Group.g
             $alt6=2;
             $LA6_0 = $this->input->LA(1);
 
@@ -934,7 +942,7 @@ class GroupLexer extends AntlrLexer {
             }
             switch ($alt6) {
                 case 1 :
-                    // Group.g:313:26: '\\r' 
+                    // src/php/Antlr/StringTemplate/Language/Group.g
                     {
                     $this->matchChar(13); 
 
@@ -960,16 +968,15 @@ class GroupLexer extends AntlrLexer {
     // $ANTLR start "WS"
     function mWS(){
         try {
-            $_type = GroupLexer::$WS;
-            $_channel = GroupLexer::$DEFAULT_TOKEN_CHANNEL;
-            // Group.g:316:5: ( ( ' ' | '\\r' | '\\t' | '\\n' ) ) 
-            // Group.g:316:7: ( ' ' | '\\r' | '\\t' | '\\n' ) 
+            $_type = GroupLexer::T_WS;
+            $_channel = GroupLexer::DEFAULT_TOKEN_CHANNEL;
+            // src/php/Antlr/StringTemplate/Language/Group.g
+            // src/php/Antlr/StringTemplate/Language/Group.g
             {
             if ( ($this->input->LA(1)>=$this->getToken('9') && $this->input->LA(1)<=$this->getToken('10'))||$this->input->LA(1)==$this->getToken('13')||$this->input->LA(1)==$this->getToken('32') ) {
                 $this->input->consume();
 
-            }
-            else {
+            } else {
                 $mse = new MismatchedSetException(null,$this->input);
                 $this->recover($mse);
                 throw $mse;}
@@ -988,173 +995,173 @@ class GroupLexer extends AntlrLexer {
     // $ANTLR end "WS"
 
     function mTokens(){
-        // Group.g:1:8: ( T__25 | T__26 | T__27 | ID | STRING | BIGSTRING | ANONYMOUS_TEMPLATE | AT | LPAREN | RPAREN | LBRACK | RBRACK | COMMA | DOT | DEFINED_TO_BE | SEMI | COLON | STAR | PLUS | ASSIGN | OPTIONAL | COMMENT | LINE_COMMENT | WS ) 
+        // src/php/Antlr/StringTemplate/Language/Group.g
         $alt7=24;
         $alt7 = $this->dfa7->predict($this->input);
         switch ($alt7) {
             case 1 :
-                // Group.g:1:10: T__25 
+                // src/php/Antlr/StringTemplate/Language/Group.g
                 {
                 $this->mT__25(); 
 
                 }
                 break;
             case 2 :
-                // Group.g:1:16: T__26 
+                // src/php/Antlr/StringTemplate/Language/Group.g
                 {
                 $this->mT__26(); 
 
                 }
                 break;
             case 3 :
-                // Group.g:1:22: T__27 
+                // src/php/Antlr/StringTemplate/Language/Group.g
                 {
                 $this->mT__27(); 
 
                 }
                 break;
             case 4 :
-                // Group.g:1:28: ID 
+                // src/php/Antlr/StringTemplate/Language/Group.g
                 {
                 $this->mID(); 
 
                 }
                 break;
             case 5 :
-                // Group.g:1:31: STRING 
+                // src/php/Antlr/StringTemplate/Language/Group.g
                 {
                 $this->mSTRING(); 
 
                 }
                 break;
             case 6 :
-                // Group.g:1:38: BIGSTRING 
+                // src/php/Antlr/StringTemplate/Language/Group.g
                 {
                 $this->mBIGSTRING(); 
 
                 }
                 break;
             case 7 :
-                // Group.g:1:48: ANONYMOUS_TEMPLATE 
+                // src/php/Antlr/StringTemplate/Language/Group.g
                 {
                 $this->mANONYMOUS_TEMPLATE(); 
 
                 }
                 break;
             case 8 :
-                // Group.g:1:67: AT 
+                // src/php/Antlr/StringTemplate/Language/Group.g
                 {
                 $this->mAT(); 
 
                 }
                 break;
             case 9 :
-                // Group.g:1:70: LPAREN 
+                // src/php/Antlr/StringTemplate/Language/Group.g
                 {
                 $this->mLPAREN(); 
 
                 }
                 break;
             case 10 :
-                // Group.g:1:77: RPAREN 
+                // src/php/Antlr/StringTemplate/Language/Group.g
                 {
                 $this->mRPAREN(); 
 
                 }
                 break;
             case 11 :
-                // Group.g:1:84: LBRACK 
+                // src/php/Antlr/StringTemplate/Language/Group.g
                 {
                 $this->mLBRACK(); 
 
                 }
                 break;
             case 12 :
-                // Group.g:1:91: RBRACK 
+                // src/php/Antlr/StringTemplate/Language/Group.g
                 {
                 $this->mRBRACK(); 
 
                 }
                 break;
             case 13 :
-                // Group.g:1:98: COMMA 
+                // src/php/Antlr/StringTemplate/Language/Group.g
                 {
                 $this->mCOMMA(); 
 
                 }
                 break;
             case 14 :
-                // Group.g:1:104: DOT 
+                // src/php/Antlr/StringTemplate/Language/Group.g
                 {
                 $this->mDOT(); 
 
                 }
                 break;
             case 15 :
-                // Group.g:1:108: DEFINED_TO_BE 
+                // src/php/Antlr/StringTemplate/Language/Group.g
                 {
                 $this->mDEFINED_TO_BE(); 
 
                 }
                 break;
             case 16 :
-                // Group.g:1:122: SEMI 
+                // src/php/Antlr/StringTemplate/Language/Group.g
                 {
                 $this->mSEMI(); 
 
                 }
                 break;
             case 17 :
-                // Group.g:1:127: COLON 
+                // src/php/Antlr/StringTemplate/Language/Group.g
                 {
                 $this->mCOLON(); 
 
                 }
                 break;
             case 18 :
-                // Group.g:1:133: STAR 
+                // src/php/Antlr/StringTemplate/Language/Group.g
                 {
                 $this->mSTAR(); 
 
                 }
                 break;
             case 19 :
-                // Group.g:1:138: PLUS 
+                // src/php/Antlr/StringTemplate/Language/Group.g
                 {
                 $this->mPLUS(); 
 
                 }
                 break;
             case 20 :
-                // Group.g:1:143: ASSIGN 
+                // src/php/Antlr/StringTemplate/Language/Group.g
                 {
                 $this->mASSIGN(); 
 
                 }
                 break;
             case 21 :
-                // Group.g:1:150: OPTIONAL 
+                // src/php/Antlr/StringTemplate/Language/Group.g
                 {
                 $this->mOPTIONAL(); 
 
                 }
                 break;
             case 22 :
-                // Group.g:1:159: COMMENT 
+                // src/php/Antlr/StringTemplate/Language/Group.g
                 {
                 $this->mCOMMENT(); 
 
                 }
                 break;
             case 23 :
-                // Group.g:1:167: LINE_COMMENT 
+                // src/php/Antlr/StringTemplate/Language/Group.g
                 {
                 $this->mLINE_COMMENT(); 
 
                 }
                 break;
             case 24 :
-                // Group.g:1:180: WS 
+                // src/php/Antlr/StringTemplate/Language/Group.g
                 {
                 $this->mWS(); 
 
