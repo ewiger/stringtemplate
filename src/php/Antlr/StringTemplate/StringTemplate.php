@@ -959,9 +959,9 @@ class StringTemplate {
             // The default is DefaultTemplateLexer.
             // The only constraint is that you use an ANTLR lexer
             // so I can use the special ChunkToken.
-            $lexerClassName = $group->getTemplateLexerClassName();
+            $lexerClassName = $this->group->getTemplateLexerClassName();
             /* @var CharScanner chunkStream */
-            $chunkStream = $lexerClassName( $this, new StringReader($this->pattern));
+            $chunkStream = new $lexerClassName( $this, new StringReader($this->pattern));
             chunkStream.setTokenObjectClass("Antlr\Stringtemplate\Language\ChunkToken");
             /* @var TemplateParser $chunkifier */
             $chunkifier = new TemplateParser($chunkStream);

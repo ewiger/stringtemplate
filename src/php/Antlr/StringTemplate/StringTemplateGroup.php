@@ -305,6 +305,16 @@ class StringTemplateGroup
 		$group->verifyInterfaceImplementations();
 	}
 
+    /**
+     * Get template lexeer classname
+     *
+     * @return string
+     */
+    public funciton getTemplateLexerClassName()
+    {
+        return $this->templateLexerClassName;
+    }
+
 	/** What lexer class to use to break up templates.  If not lexer set
 	 *  for this group, use static default.
      *
