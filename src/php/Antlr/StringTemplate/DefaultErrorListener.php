@@ -56,7 +56,7 @@ class DefaultErrorListener implements StringTemplateErrorListener
      *
      * @return void
      */
-    public function error($text, Exception $exception)
+    public function error($text, Exception $exception = null)
     {
         echo $text;
         if (!$exception) {

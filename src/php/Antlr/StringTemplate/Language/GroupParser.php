@@ -1,5 +1,5 @@
 <?php
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 ./src/php/Antlr/StringTemplate/Language/Group.g 2010-09-21 00:24:21
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 ./src/php/Antlr/StringTemplate/Language/Group.g 2010-09-21 00:59:45
 
 namespace Antlr\StringTemplate\Language;
 
@@ -296,7 +296,7 @@ class GroupParser extends Parser {
             	    // ./src/php/Antlr/StringTemplate/Language/Group.g
             	    {
             	    $this->pushFollow(self::$FOLLOW_template_in_group152);
-            	    $this->template(g);
+            	    $this->template($g);
 
             	    $this->state->_fsp--;
 
@@ -307,7 +307,7 @@ class GroupParser extends Parser {
             	    // ./src/php/Antlr/StringTemplate/Language/Group.g
             	    {
             	    $this->pushFollow(self::$FOLLOW_mapdef_in_group157);
-            	    $this->mapdef(g);
+            	    $this->mapdef($g);
 
             	    $this->state->_fsp--;
 
@@ -501,7 +501,7 @@ class GroupParser extends Parser {
                             // ./src/php/Antlr/StringTemplate/Language/Group.g
                             {
                             $this->pushFollow(self::$FOLLOW_args_in_template254);
-                            $this->args(st);
+                            $this->args($st);
 
                             $this->state->_fsp--;
 
@@ -594,7 +594,7 @@ class GroupParser extends Parser {
             // ./src/php/Antlr/StringTemplate/Language/Group.g
             {
             $this->pushFollow(self::$FOLLOW_arg_in_args347);
-            $this->arg(st);
+            $this->arg($st);
 
             $this->state->_fsp--;
 
@@ -615,7 +615,7 @@ class GroupParser extends Parser {
             	    {
             	    $this->match($this->input,$this->getToken('COMMA'),self::$FOLLOW_COMMA_in_args352); 
             	    $this->pushFollow(self::$FOLLOW_arg_in_args354);
-            	    $this->arg(st);
+            	    $this->arg($st);
 
             	    $this->state->_fsp--;
 
@@ -784,7 +784,7 @@ class GroupParser extends Parser {
             {
             $this->match($this->input,$this->getToken('LBRACK'),self::$FOLLOW_LBRACK_in_map478); 
             $this->pushFollow(self::$FOLLOW_mapPairs_in_map480);
-            $this->mapPairs(mapping);
+            $this->mapPairs($mapping);
 
             $this->state->_fsp--;
 
@@ -830,7 +830,7 @@ class GroupParser extends Parser {
                     // ./src/php/Antlr/StringTemplate/Language/Group.g
                     {
                     $this->pushFollow(self::$FOLLOW_keyValuePair_in_mapPairs499);
-                    $this->keyValuePair(mapping);
+                    $this->keyValuePair($mapping);
 
                     $this->state->_fsp--;
 
@@ -857,7 +857,7 @@ class GroupParser extends Parser {
                     	    {
                     	    $this->match($this->input,$this->getToken('COMMA'),self::$FOLLOW_COMMA_in_mapPairs503); 
                     	    $this->pushFollow(self::$FOLLOW_keyValuePair_in_mapPairs505);
-                    	    $this->keyValuePair(mapping);
+                    	    $this->keyValuePair($mapping);
 
                     	    $this->state->_fsp--;
 
@@ -883,7 +883,7 @@ class GroupParser extends Parser {
                             {
                             $this->match($this->input,$this->getToken('COMMA'),self::$FOLLOW_COMMA_in_mapPairs517); 
                             $this->pushFollow(self::$FOLLOW_defaultValuePair_in_mapPairs519);
-                            $this->defaultValuePair(mapping);
+                            $this->defaultValuePair($mapping);
 
                             $this->state->_fsp--;
 
@@ -900,7 +900,7 @@ class GroupParser extends Parser {
                     // ./src/php/Antlr/StringTemplate/Language/Group.g
                     {
                     $this->pushFollow(self::$FOLLOW_defaultValuePair_in_mapPairs530);
-                    $this->defaultValuePair(mapping);
+                    $this->defaultValuePair($mapping);
 
                     $this->state->_fsp--;
 

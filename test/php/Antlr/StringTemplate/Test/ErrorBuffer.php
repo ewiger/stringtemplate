@@ -69,7 +69,7 @@ class ErrorBuffer implements StringTemplateErrorListener {
      *
      * @return void
      */
-    public function error($text, Exception $exception) {
+    public function error($text, Exception $exception = null) {
         if (!is_null($this->errorOutput)) {
             $this->errorOutput->append("\n");
         } else {

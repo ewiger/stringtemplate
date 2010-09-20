@@ -52,7 +52,7 @@ use Exception;
  */
 interface StringTemplateErrorListener
 {
-    public function error($text, Exception $exception);
+    public function error($text, Exception $exception = null);
 
     public function warning($text);
 }

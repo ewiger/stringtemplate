@@ -1,5 +1,5 @@
 <?php
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 ./src/php/Antlr/StringTemplate/Language/Group.g 2010-09-21 00:24:22
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 ./src/php/Antlr/StringTemplate/Language/Group.g 2010-09-21 00:59:46
 
 namespace Antlr\StringTemplate\Language;
 

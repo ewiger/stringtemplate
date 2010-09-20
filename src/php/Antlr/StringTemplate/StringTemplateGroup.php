@@ -395,17 +395,18 @@ class StringTemplateGroup
 	/**
      * Just track the new interface; check later.  Allows dups, but no biggie.
      *
-     * @param StringTemplateGroupInterface $groupInterface
+     * @param StringTemplateGroupInterface|string $groupInterface
      *
      * @return void
      */
-	public function implementInterface(StringTemplateGroupInterface $groupInterface)
+	public function implementInterface($groupInterface)
     {
 		if ( $this->interfaces==null ) {
             $this->interfaces = array();
 		}
         if(is_string($groupInterface)) {
             $this->implementInterfaceByName($groupInterface);
+            return;
         }
 		$this->interfaces->add($groupInterface);
 	}
@@ -420,19 +421,20 @@ class StringTemplateGroup
 	 */
 	public function implementInterfaceByName($interfaceName)
     {
-		$groupInterface = $this->nameToInterfaceMap[$interfaceName];
-		if ( $groupInterface!=null ) { // we've seen before; just use it
+		if ( array_key_exists($interfaceName, self::$nameToInterfaceMap) ) { 
+            // // we've seen before; just use it
+            $groupInterface = self::$nameToInterfaceMap[$interfaceName];
 			$this->implementInterface($groupInterface);
 			return;
 		}
 		$groupInterface = $this->loadInterface($interfaceName); // else load it
 		if ( $groupInterface!=null ) {
-			$this->nameToInterfaceMap[$interfaceName] = $groupInterface;
+			self::$nameToInterfaceMap[$interfaceName] = $groupInterface;
 			$this->implementInterface($groupInterface);
 		}
 		else {
-			if ( $this->groupLoader==null ) {
-				$this->listener->error("no group loader registered", null);
+			if ( self::$groupLoader==null ) {
+				$this->listener->error("no group loader registered");
 			}
 		}
 	}
@@ -1219,8 +1221,8 @@ class StringTemplateGroup
      */
 	public static function loadGroup($name, $lexer, StringTemplateGroup $superGroup)
     {
-		if ( $this->groupLoader != null ) {
-			return $this->groupLoader->loadGroup($name, $lexer, $superGroup);
+		if ( self::$groupLoader != null ) {
+			return self::$groupLoader->loadGroup($name, $lexer, $superGroup);
 		}
 
         return null;
@@ -1234,8 +1236,8 @@ class StringTemplateGroup
      * @return StringTemplateGroupInterface
      */
     public static function loadInterface($name) {
-		if ( $this->groupLoader != null ) {
-			return $this->groupLoader->loadInterface($name);
+		if ( self::$groupLoader != null ) {
+			return self::$groupLoader->loadInterface($name);
 		}
         
 		return null;
