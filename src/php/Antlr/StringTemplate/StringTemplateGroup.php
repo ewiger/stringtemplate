@@ -310,7 +310,7 @@ class StringTemplateGroup
      *
      * @return string
      */
-    public funciton getTemplateLexerClassName()
+    public function getTemplateLexerClassName()
     {
         return $this->templateLexerClassName;
     }
