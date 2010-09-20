@@ -128,7 +128,7 @@ template[StringTemplateGroup g]
                     \$g->error("group ".\$g->getName()." line ".\$line.": template ".\$enclosing->getText()." has no region called ".
                         \$region->getText());
                     \$err = true;
-                } 
+                }
                 if ( \$err ) {
                     \$st = new StringTemplate();
                 } else {
@@ -221,18 +221,18 @@ mapdef[StringTemplateGroup g]
 map returns [Map mapping=new HashMap()]
 	:   LBRACK mapPairs[mapping] RBRACK
 	;
-	
+
 mapPairs [Map mapping]
     : keyValuePair[mapping] (COMMA keyValuePair[mapping])*
       (COMMA defaultValuePair[mapping])?
-    | defaultValuePair[mapping] 
-    ;	
-	
+    | defaultValuePair[mapping]
+    ;
+
 defaultValuePair[Map mapping]
 @init{
     /* @var StringTemplate \$v */
     \$v = null;
-}	
+}
 	:	'default' COLON v=keyValue
         {\$mapping->put(ASTExp::DEFAULT_MAP_VALUE_NAME, \$v);}
 	;
@@ -257,7 +257,7 @@ keyValue returns [StringTemplate value=null]
  * Lexer grammar
  */
 
-ID 
+ID
     : ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'0'..'9'|'-'|'_')*
     ;
 
@@ -325,11 +325,11 @@ ASSIGN:   '=' ;
 OPTIONAL : '?' ;
 
 COMMENT
-    :   '/*' ( options {greedy=false;} : . )* '*/' {skip();}
+    :   '/*' ( options {greedy=false;} : . )* '*/' {\$this->skip();}
     ;
 
 LINE_COMMENT
-    :	'//' ~('\n'|'\r')* '\r'? '\n' {skip();}
+    :	'//' ~('\n'|'\r')* '\r'? '\n' {\$this->skip();}
     ;
 
-WS  :	(' '|'\r'|'\t'|'\n') {skip();} ;
+WS  :	(' '|'\r'|'\t'|'\n') {\$this->skip();} ;
