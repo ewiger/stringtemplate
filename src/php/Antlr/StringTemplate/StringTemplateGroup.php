@@ -823,7 +823,7 @@ class StringTemplateGroup
 		$stringTemplate->setGroup($this);
 		$stringTemplate->setNativeGroup($this);
 		$stringTemplate->setTemplate($template);
-		$stringTemplate->setErrorListener($listener);
+		$stringTemplate->setErrorListener($this->getErrorListener());
         $templates[$name] = $stringTemplate;
 
         return $stringTemplate;
