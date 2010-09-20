@@ -40,6 +40,8 @@ use Antlr\Util\Reader;
 use Antlr\Util\StringBuffer;
 use Antlr\StringTemplate\Language\GroupLexer;
 use Antlr\StringTemplate\Language\GroupParser;
+use Antlr\Runtime\CharStream;
+use Antlr\Runtime\CommonTokenStream;
 
 /**
  *  Manages a group of named mutually-referential StringTemplate objects.
@@ -963,12 +965,15 @@ class StringTemplateGroup
     /**
      * Parse group
      *
+     * @param CharStream $reader
+     *
      * @return
      */
-	protected function parseGroup(Reader $reader) {
+	protected function parseGroup(CharStream $reader) {
 		try {
 			$lexer = new GroupLexer($reader);
-			$parser = new GroupParser($lexer);
+            $tokenStream = new CommonTokenStream($lexer);
+			$parser = new GroupParser($tokenStream);            
 			$parser->group($this);
 			//System.out.println("read group\n"+this.toString());
 		} catch (Exception $exception) {
