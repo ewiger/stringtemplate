@@ -819,11 +819,11 @@ class StringTemplateGroup
 			throw new Exception("cannot have '.' in template names");
 		}
 		$stringTemplate = $this->createStringTemplate();
-		$stringTemplate.setName($name);
-		$stringTemplate.setGroup($this);
-		$stringTemplate.setNativeGroup($this);
-		$stringTemplate.setTemplate($template);
-		$stringTemplate.setErrorListener($listener);
+		$stringTemplate->setName($name);
+		$stringTemplate->setGroup($this);
+		$stringTemplate->setNativeGroup($this);
+		$stringTemplate->setTemplate($template);
+		$stringTemplate->setErrorListener($listener);
         $templates[$name] = $stringTemplate;
 
         return $stringTemplate;
@@ -923,8 +923,8 @@ class StringTemplateGroup
      * @return boolean
      */
 	public function isDefinedInThisGroup($name) {
-		$stringTemplate = $this->templates[$name];
-		if ( $stringTemplate!=null ) {
+		if (array_key_exists($name, $this->templates)) {
+		    $stringTemplate = $this->templates[$name];
 			if ( $stringTemplate->isRegion() ) {
 				// don't allow redef of @t.r() ::= "..." or <@r>...<@end>
 				if ( $stringTemplate->getRegionDefType()==StringTemplate::REGION_IMPLICIT ) {

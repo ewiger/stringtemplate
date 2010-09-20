@@ -105,7 +105,7 @@ template[StringTemplateGroup g]
     \$ignore = false;
     /* @var string \$templateName */
     \$templateName=null;
-    \$line = \$this->LT(1)->getLine();
+    \$line = \$this->getTokenStream()->LT(1)->getLine();
 }
     : ( AT enclosing=ID DOT region=ID
 	    {
@@ -141,7 +141,7 @@ template[StringTemplateGroup g]
         }
     	|	name=ID {\$templateName = \$name->getText();}
 			{
-			if ( \$g->isDefinedInThisGroup(templateName) ) {
+			if ( \$g->isDefinedInThisGroup(\$templateName) ) {
 				\$g->error("redefinition of template: ".\$templateName);
 				\$st = new StringTemplate(); // create bogus template to fill in
 			}

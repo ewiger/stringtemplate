@@ -1,5 +1,5 @@
 <?php
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 ./src/php/Antlr/StringTemplate/Language/Group.g 2010-09-21 00:59:45
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 ./src/php/Antlr/StringTemplate/Language/Group.g 2010-09-21 01:10:49
 
 namespace Antlr\StringTemplate\Language;
 
@@ -368,7 +368,7 @@ class GroupParser extends Parser {
             $ignore = false;
             /* @var string $templateName */
             $templateName=null;
-            $line = $this->LT(1)->getLine();
+            $line = $this->getTokenStream()->LT(1)->getLine();
 
         try {
             // ./src/php/Antlr/StringTemplate/Language/Group.g
@@ -465,7 +465,7 @@ class GroupParser extends Parser {
                             $name=$this->match($this->input,$this->getToken('ID'),self::$FOLLOW_ID_in_template214); 
                               $templateName = $name->getText();
 
-                              			if ( $g->isDefinedInThisGroup(templateName) ) {
+                              			if ( $g->isDefinedInThisGroup($templateName) ) {
                               				$g->error("redefinition of template: ".$templateName);
                               				$st = new StringTemplate(); // create bogus template to fill in
                               			}
