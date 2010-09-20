@@ -1,5 +1,5 @@
 <?php
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 src/php/Antlr/StringTemplate/Language/Group.g 2010-09-19 15:10:26
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 ./src/php/Antlr/StringTemplate/Language/Group.g 2010-09-20 22:32:16
 
 namespace Antlr\StringTemplate\Language;
 
@@ -176,15 +176,15 @@ class GroupLexer extends Lexer {
 
             $this->dfa7 = new GroupLexer_DFA7($this);
     }
-    function getGrammarFileName() { return "src/php/Antlr/StringTemplate/Language/Group.g"; }
+    function getGrammarFileName() { return "./src/php/Antlr/StringTemplate/Language/Group.g"; }
 
     // $ANTLR start "T__25"
     function mT__25(){
         try {
             $_type = GroupLexer::T_T__25;
             $_channel = GroupLexer::DEFAULT_TOKEN_CHANNEL;
-            // src/php/Antlr/StringTemplate/Language/Group.g
-            // src/php/Antlr/StringTemplate/Language/Group.g
+            // ./src/php/Antlr/StringTemplate/Language/Group.g
+            // ./src/php/Antlr/StringTemplate/Language/Group.g
             {
             $this->matchString("group"); 
 
@@ -205,8 +205,8 @@ class GroupLexer extends Lexer {
         try {
             $_type = GroupLexer::T_T__26;
             $_channel = GroupLexer::DEFAULT_TOKEN_CHANNEL;
-            // src/php/Antlr/StringTemplate/Language/Group.g
-            // src/php/Antlr/StringTemplate/Language/Group.g
+            // ./src/php/Antlr/StringTemplate/Language/Group.g
+            // ./src/php/Antlr/StringTemplate/Language/Group.g
             {
             $this->matchString("implements"); 
 
@@ -227,8 +227,8 @@ class GroupLexer extends Lexer {
         try {
             $_type = GroupLexer::T_T__27;
             $_channel = GroupLexer::DEFAULT_TOKEN_CHANNEL;
-            // src/php/Antlr/StringTemplate/Language/Group.g
-            // src/php/Antlr/StringTemplate/Language/Group.g
+            // ./src/php/Antlr/StringTemplate/Language/Group.g
+            // ./src/php/Antlr/StringTemplate/Language/Group.g
             {
             $this->matchString("default"); 
 
@@ -249,8 +249,8 @@ class GroupLexer extends Lexer {
         try {
             $_type = GroupLexer::T_ID;
             $_channel = GroupLexer::DEFAULT_TOKEN_CHANNEL;
-            // src/php/Antlr/StringTemplate/Language/Group.g
-            // src/php/Antlr/StringTemplate/Language/Group.g
+            // ./src/php/Antlr/StringTemplate/Language/Group.g
+            // ./src/php/Antlr/StringTemplate/Language/Group.g
             {
             if ( ($this->input->LA(1)>=$this->getToken('65') && $this->input->LA(1)<=$this->getToken('90'))||$this->input->LA(1)==$this->getToken('95')||($this->input->LA(1)>=$this->getToken('97') && $this->input->LA(1)<=$this->getToken('122')) ) {
                 $this->input->consume();
@@ -260,7 +260,7 @@ class GroupLexer extends Lexer {
                 $this->recover($mse);
                 throw $mse;}
 
-            // src/php/Antlr/StringTemplate/Language/Group.g
+            // ./src/php/Antlr/StringTemplate/Language/Group.g
             //loop1:
             do {
                 $alt1=2;
@@ -273,7 +273,7 @@ class GroupLexer extends Lexer {
 
                 switch ($alt1) {
             	case 1 :
-            	    // src/php/Antlr/StringTemplate/Language/Group.g
+            	    // ./src/php/Antlr/StringTemplate/Language/Group.g
             	    {
             	    if ( $this->input->LA(1)==$this->getToken('45')||($this->input->LA(1)>=$this->getToken('48') && $this->input->LA(1)<=$this->getToken('57'))||($this->input->LA(1)>=$this->getToken('65') && $this->input->LA(1)<=$this->getToken('90'))||$this->input->LA(1)==$this->getToken('95')||($this->input->LA(1)>=$this->getToken('97') && $this->input->LA(1)<=$this->getToken('122')) ) {
             	        $this->input->consume();
@@ -309,11 +309,11 @@ class GroupLexer extends Lexer {
         try {
             $_type = GroupLexer::T_STRING;
             $_channel = GroupLexer::DEFAULT_TOKEN_CHANNEL;
-            // src/php/Antlr/StringTemplate/Language/Group.g
-            // src/php/Antlr/StringTemplate/Language/Group.g
+            // ./src/php/Antlr/StringTemplate/Language/Group.g
+            // ./src/php/Antlr/StringTemplate/Language/Group.g
             {
             $this->matchChar(34); 
-            // src/php/Antlr/StringTemplate/Language/Group.g
+            // ./src/php/Antlr/StringTemplate/Language/Group.g
             //loop2:
             do {
                 $alt2=5;
@@ -341,7 +341,7 @@ class GroupLexer extends Lexer {
 
                 switch ($alt2) {
             	case 1 :
-            	    // src/php/Antlr/StringTemplate/Language/Group.g
+            	    // ./src/php/Antlr/StringTemplate/Language/Group.g
             	    {
             	    $this->matchChar(92); 
             	    $this->matchChar(34); 
@@ -349,7 +349,7 @@ class GroupLexer extends Lexer {
             	    }
             	    break;
             	case 2 :
-            	    // src/php/Antlr/StringTemplate/Language/Group.g
+            	    // ./src/php/Antlr/StringTemplate/Language/Group.g
             	    {
             	    $this->matchChar(92); 
             	    if ( ($this->input->LA(1)>=$this->getToken('0') && $this->input->LA(1)<=$this->getToken('33'))||($this->input->LA(1)>=$this->getToken('35') && $this->input->LA(1)<=$this->getToken('65535')) ) {
@@ -364,7 +364,7 @@ class GroupLexer extends Lexer {
             	    }
             	    break;
             	case 3 :
-            	    // src/php/Antlr/StringTemplate/Language/Group.g
+            	    // ./src/php/Antlr/StringTemplate/Language/Group.g
             	    {
 
             	      			$msg = "\\n in string";
@@ -376,7 +376,7 @@ class GroupLexer extends Lexer {
             	    }
             	    break;
             	case 4 :
-            	    // src/php/Antlr/StringTemplate/Language/Group.g
+            	    // ./src/php/Antlr/StringTemplate/Language/Group.g
             	    {
             	    if ( ($this->input->LA(1)>=$this->getToken('0') && $this->input->LA(1)<=$this->getToken('9'))||($this->input->LA(1)>=$this->getToken('11') && $this->input->LA(1)<=$this->getToken('33'))||($this->input->LA(1)>=$this->getToken('35') && $this->input->LA(1)<=$this->getToken('91'))||($this->input->LA(1)>=$this->getToken('93') && $this->input->LA(1)<=$this->getToken('65535')) ) {
             	        $this->input->consume();
@@ -413,12 +413,12 @@ class GroupLexer extends Lexer {
         try {
             $_type = GroupLexer::T_BIGSTRING;
             $_channel = GroupLexer::DEFAULT_TOKEN_CHANNEL;
-            // src/php/Antlr/StringTemplate/Language/Group.g
-            // src/php/Antlr/StringTemplate/Language/Group.g
+            // ./src/php/Antlr/StringTemplate/Language/Group.g
+            // ./src/php/Antlr/StringTemplate/Language/Group.g
             {
             $this->matchString("<<"); 
 
-            // src/php/Antlr/StringTemplate/Language/Group.g
+            // ./src/php/Antlr/StringTemplate/Language/Group.g
             //loop3:
             do {
                 $alt3=4;
@@ -455,7 +455,7 @@ class GroupLexer extends Lexer {
 
                 switch ($alt3) {
             	case 1 :
-            	    // src/php/Antlr/StringTemplate/Language/Group.g
+            	    // ./src/php/Antlr/StringTemplate/Language/Group.g
             	    {
             	    $this->matchChar(92); 
             	    $this->matchChar(62); 
@@ -463,7 +463,7 @@ class GroupLexer extends Lexer {
             	    }
             	    break;
             	case 2 :
-            	    // src/php/Antlr/StringTemplate/Language/Group.g
+            	    // ./src/php/Antlr/StringTemplate/Language/Group.g
             	    {
             	    $this->matchChar(92); 
             	    if ( ($this->input->LA(1)>=$this->getToken('0') && $this->input->LA(1)<=$this->getToken('61'))||($this->input->LA(1)>=$this->getToken('63') && $this->input->LA(1)<=$this->getToken('65535')) ) {
@@ -478,7 +478,7 @@ class GroupLexer extends Lexer {
             	    }
             	    break;
             	case 3 :
-            	    // src/php/Antlr/StringTemplate/Language/Group.g
+            	    // ./src/php/Antlr/StringTemplate/Language/Group.g
             	    {
             	    if ( ($this->input->LA(1)>=$this->getToken('0') && $this->input->LA(1)<=$this->getToken('91'))||($this->input->LA(1)>=$this->getToken('93') && $this->input->LA(1)<=$this->getToken('65535')) ) {
             	        $this->input->consume();
@@ -520,8 +520,8 @@ class GroupLexer extends Lexer {
         try {
             $_type = GroupLexer::T_ANONYMOUS_TEMPLATE;
             $_channel = GroupLexer::DEFAULT_TOKEN_CHANNEL;
-            // src/php/Antlr/StringTemplate/Language/Group.g
-            // src/php/Antlr/StringTemplate/Language/Group.g
+            // ./src/php/Antlr/StringTemplate/Language/Group.g
+            // ./src/php/Antlr/StringTemplate/Language/Group.g
             {
             $this->matchChar(123); 
             $this->matchChar(125); 
@@ -542,8 +542,8 @@ class GroupLexer extends Lexer {
         try {
             $_type = GroupLexer::T_AT;
             $_channel = GroupLexer::DEFAULT_TOKEN_CHANNEL;
-            // src/php/Antlr/StringTemplate/Language/Group.g
-            // src/php/Antlr/StringTemplate/Language/Group.g
+            // ./src/php/Antlr/StringTemplate/Language/Group.g
+            // ./src/php/Antlr/StringTemplate/Language/Group.g
             {
             $this->matchChar(64); 
 
@@ -563,8 +563,8 @@ class GroupLexer extends Lexer {
         try {
             $_type = GroupLexer::T_LPAREN;
             $_channel = GroupLexer::DEFAULT_TOKEN_CHANNEL;
-            // src/php/Antlr/StringTemplate/Language/Group.g
-            // src/php/Antlr/StringTemplate/Language/Group.g
+            // ./src/php/Antlr/StringTemplate/Language/Group.g
+            // ./src/php/Antlr/StringTemplate/Language/Group.g
             {
             $this->matchChar(40); 
 
@@ -584,8 +584,8 @@ class GroupLexer extends Lexer {
         try {
             $_type = GroupLexer::T_RPAREN;
             $_channel = GroupLexer::DEFAULT_TOKEN_CHANNEL;
-            // src/php/Antlr/StringTemplate/Language/Group.g
-            // src/php/Antlr/StringTemplate/Language/Group.g
+            // ./src/php/Antlr/StringTemplate/Language/Group.g
+            // ./src/php/Antlr/StringTemplate/Language/Group.g
             {
             $this->matchChar(41); 
 
@@ -605,8 +605,8 @@ class GroupLexer extends Lexer {
         try {
             $_type = GroupLexer::T_LBRACK;
             $_channel = GroupLexer::DEFAULT_TOKEN_CHANNEL;
-            // src/php/Antlr/StringTemplate/Language/Group.g
-            // src/php/Antlr/StringTemplate/Language/Group.g
+            // ./src/php/Antlr/StringTemplate/Language/Group.g
+            // ./src/php/Antlr/StringTemplate/Language/Group.g
             {
             $this->matchChar(91); 
 
@@ -626,8 +626,8 @@ class GroupLexer extends Lexer {
         try {
             $_type = GroupLexer::T_RBRACK;
             $_channel = GroupLexer::DEFAULT_TOKEN_CHANNEL;
-            // src/php/Antlr/StringTemplate/Language/Group.g
-            // src/php/Antlr/StringTemplate/Language/Group.g
+            // ./src/php/Antlr/StringTemplate/Language/Group.g
+            // ./src/php/Antlr/StringTemplate/Language/Group.g
             {
             $this->matchChar(93); 
 
@@ -647,8 +647,8 @@ class GroupLexer extends Lexer {
         try {
             $_type = GroupLexer::T_COMMA;
             $_channel = GroupLexer::DEFAULT_TOKEN_CHANNEL;
-            // src/php/Antlr/StringTemplate/Language/Group.g
-            // src/php/Antlr/StringTemplate/Language/Group.g
+            // ./src/php/Antlr/StringTemplate/Language/Group.g
+            // ./src/php/Antlr/StringTemplate/Language/Group.g
             {
             $this->matchChar(44); 
 
@@ -668,8 +668,8 @@ class GroupLexer extends Lexer {
         try {
             $_type = GroupLexer::T_DOT;
             $_channel = GroupLexer::DEFAULT_TOKEN_CHANNEL;
-            // src/php/Antlr/StringTemplate/Language/Group.g
-            // src/php/Antlr/StringTemplate/Language/Group.g
+            // ./src/php/Antlr/StringTemplate/Language/Group.g
+            // ./src/php/Antlr/StringTemplate/Language/Group.g
             {
             $this->matchChar(46); 
 
@@ -689,8 +689,8 @@ class GroupLexer extends Lexer {
         try {
             $_type = GroupLexer::T_DEFINED_TO_BE;
             $_channel = GroupLexer::DEFAULT_TOKEN_CHANNEL;
-            // src/php/Antlr/StringTemplate/Language/Group.g
-            // src/php/Antlr/StringTemplate/Language/Group.g
+            // ./src/php/Antlr/StringTemplate/Language/Group.g
+            // ./src/php/Antlr/StringTemplate/Language/Group.g
             {
             $this->matchString("::="); 
 
@@ -711,8 +711,8 @@ class GroupLexer extends Lexer {
         try {
             $_type = GroupLexer::T_SEMI;
             $_channel = GroupLexer::DEFAULT_TOKEN_CHANNEL;
-            // src/php/Antlr/StringTemplate/Language/Group.g
-            // src/php/Antlr/StringTemplate/Language/Group.g
+            // ./src/php/Antlr/StringTemplate/Language/Group.g
+            // ./src/php/Antlr/StringTemplate/Language/Group.g
             {
             $this->matchChar(59); 
 
@@ -732,8 +732,8 @@ class GroupLexer extends Lexer {
         try {
             $_type = GroupLexer::T_COLON;
             $_channel = GroupLexer::DEFAULT_TOKEN_CHANNEL;
-            // src/php/Antlr/StringTemplate/Language/Group.g
-            // src/php/Antlr/StringTemplate/Language/Group.g
+            // ./src/php/Antlr/StringTemplate/Language/Group.g
+            // ./src/php/Antlr/StringTemplate/Language/Group.g
             {
             $this->matchChar(58); 
 
@@ -753,8 +753,8 @@ class GroupLexer extends Lexer {
         try {
             $_type = GroupLexer::T_STAR;
             $_channel = GroupLexer::DEFAULT_TOKEN_CHANNEL;
-            // src/php/Antlr/StringTemplate/Language/Group.g
-            // src/php/Antlr/StringTemplate/Language/Group.g
+            // ./src/php/Antlr/StringTemplate/Language/Group.g
+            // ./src/php/Antlr/StringTemplate/Language/Group.g
             {
             $this->matchChar(42); 
 
@@ -774,8 +774,8 @@ class GroupLexer extends Lexer {
         try {
             $_type = GroupLexer::T_PLUS;
             $_channel = GroupLexer::DEFAULT_TOKEN_CHANNEL;
-            // src/php/Antlr/StringTemplate/Language/Group.g
-            // src/php/Antlr/StringTemplate/Language/Group.g
+            // ./src/php/Antlr/StringTemplate/Language/Group.g
+            // ./src/php/Antlr/StringTemplate/Language/Group.g
             {
             $this->matchChar(43); 
 
@@ -795,8 +795,8 @@ class GroupLexer extends Lexer {
         try {
             $_type = GroupLexer::T_ASSIGN;
             $_channel = GroupLexer::DEFAULT_TOKEN_CHANNEL;
-            // src/php/Antlr/StringTemplate/Language/Group.g
-            // src/php/Antlr/StringTemplate/Language/Group.g
+            // ./src/php/Antlr/StringTemplate/Language/Group.g
+            // ./src/php/Antlr/StringTemplate/Language/Group.g
             {
             $this->matchChar(61); 
 
@@ -816,8 +816,8 @@ class GroupLexer extends Lexer {
         try {
             $_type = GroupLexer::T_OPTIONAL;
             $_channel = GroupLexer::DEFAULT_TOKEN_CHANNEL;
-            // src/php/Antlr/StringTemplate/Language/Group.g
-            // src/php/Antlr/StringTemplate/Language/Group.g
+            // ./src/php/Antlr/StringTemplate/Language/Group.g
+            // ./src/php/Antlr/StringTemplate/Language/Group.g
             {
             $this->matchChar(63); 
 
@@ -837,12 +837,12 @@ class GroupLexer extends Lexer {
         try {
             $_type = GroupLexer::T_COMMENT;
             $_channel = GroupLexer::DEFAULT_TOKEN_CHANNEL;
-            // src/php/Antlr/StringTemplate/Language/Group.g
-            // src/php/Antlr/StringTemplate/Language/Group.g
+            // ./src/php/Antlr/StringTemplate/Language/Group.g
+            // ./src/php/Antlr/StringTemplate/Language/Group.g
             {
             $this->matchString("/*"); 
 
-            // src/php/Antlr/StringTemplate/Language/Group.g
+            // ./src/php/Antlr/StringTemplate/Language/Group.g
             //loop4:
             do {
                 $alt4=2;
@@ -867,7 +867,7 @@ class GroupLexer extends Lexer {
 
                 switch ($alt4) {
             	case 1 :
-            	    // src/php/Antlr/StringTemplate/Language/Group.g
+            	    // ./src/php/Antlr/StringTemplate/Language/Group.g
             	    {
             	    $this->matchAny(); 
 
@@ -899,12 +899,12 @@ class GroupLexer extends Lexer {
         try {
             $_type = GroupLexer::T_LINE_COMMENT;
             $_channel = GroupLexer::DEFAULT_TOKEN_CHANNEL;
-            // src/php/Antlr/StringTemplate/Language/Group.g
-            // src/php/Antlr/StringTemplate/Language/Group.g
+            // ./src/php/Antlr/StringTemplate/Language/Group.g
+            // ./src/php/Antlr/StringTemplate/Language/Group.g
             {
             $this->matchString("//"); 
 
-            // src/php/Antlr/StringTemplate/Language/Group.g
+            // ./src/php/Antlr/StringTemplate/Language/Group.g
             //loop5:
             do {
                 $alt5=2;
@@ -917,7 +917,7 @@ class GroupLexer extends Lexer {
 
                 switch ($alt5) {
             	case 1 :
-            	    // src/php/Antlr/StringTemplate/Language/Group.g
+            	    // ./src/php/Antlr/StringTemplate/Language/Group.g
             	    {
             	    if ( ($this->input->LA(1)>=$this->getToken('0') && $this->input->LA(1)<=$this->getToken('9'))||($this->input->LA(1)>=$this->getToken('11') && $this->input->LA(1)<=$this->getToken('12'))||($this->input->LA(1)>=$this->getToken('14') && $this->input->LA(1)<=$this->getToken('65535')) ) {
             	        $this->input->consume();
@@ -936,7 +936,7 @@ class GroupLexer extends Lexer {
                 }
             } while (true);
 
-            // src/php/Antlr/StringTemplate/Language/Group.g
+            // ./src/php/Antlr/StringTemplate/Language/Group.g
             $alt6=2;
             $LA6_0 = $this->input->LA(1);
 
@@ -945,7 +945,7 @@ class GroupLexer extends Lexer {
             }
             switch ($alt6) {
                 case 1 :
-                    // src/php/Antlr/StringTemplate/Language/Group.g
+                    // ./src/php/Antlr/StringTemplate/Language/Group.g
                     {
                     $this->matchChar(13); 
 
@@ -973,8 +973,8 @@ class GroupLexer extends Lexer {
         try {
             $_type = GroupLexer::T_WS;
             $_channel = GroupLexer::DEFAULT_TOKEN_CHANNEL;
-            // src/php/Antlr/StringTemplate/Language/Group.g
-            // src/php/Antlr/StringTemplate/Language/Group.g
+            // ./src/php/Antlr/StringTemplate/Language/Group.g
+            // ./src/php/Antlr/StringTemplate/Language/Group.g
             {
             if ( ($this->input->LA(1)>=$this->getToken('9') && $this->input->LA(1)<=$this->getToken('10'))||$this->input->LA(1)==$this->getToken('13')||$this->input->LA(1)==$this->getToken('32') ) {
                 $this->input->consume();
@@ -998,173 +998,173 @@ class GroupLexer extends Lexer {
     // $ANTLR end "WS"
 
     function mTokens(){
-        // src/php/Antlr/StringTemplate/Language/Group.g
+        // ./src/php/Antlr/StringTemplate/Language/Group.g
         $alt7=24;
         $alt7 = $this->dfa7->predict($this->input);
         switch ($alt7) {
             case 1 :
-                // src/php/Antlr/StringTemplate/Language/Group.g
+                // ./src/php/Antlr/StringTemplate/Language/Group.g
                 {
                 $this->mT__25(); 
 
                 }
                 break;
             case 2 :
-                // src/php/Antlr/StringTemplate/Language/Group.g
+                // ./src/php/Antlr/StringTemplate/Language/Group.g
                 {
                 $this->mT__26(); 
 
                 }
                 break;
             case 3 :
-                // src/php/Antlr/StringTemplate/Language/Group.g
+                // ./src/php/Antlr/StringTemplate/Language/Group.g
                 {
                 $this->mT__27(); 
 
                 }
                 break;
             case 4 :
-                // src/php/Antlr/StringTemplate/Language/Group.g
+                // ./src/php/Antlr/StringTemplate/Language/Group.g
                 {
                 $this->mID(); 
 
                 }
                 break;
             case 5 :
-                // src/php/Antlr/StringTemplate/Language/Group.g
+                // ./src/php/Antlr/StringTemplate/Language/Group.g
                 {
                 $this->mSTRING(); 
 
                 }
                 break;
             case 6 :
-                // src/php/Antlr/StringTemplate/Language/Group.g
+                // ./src/php/Antlr/StringTemplate/Language/Group.g
                 {
                 $this->mBIGSTRING(); 
 
                 }
                 break;
             case 7 :
-                // src/php/Antlr/StringTemplate/Language/Group.g
+                // ./src/php/Antlr/StringTemplate/Language/Group.g
                 {
                 $this->mANONYMOUS_TEMPLATE(); 
 
                 }
                 break;
             case 8 :
-                // src/php/Antlr/StringTemplate/Language/Group.g
+                // ./src/php/Antlr/StringTemplate/Language/Group.g
                 {
                 $this->mAT(); 
 
                 }
                 break;
             case 9 :
-                // src/php/Antlr/StringTemplate/Language/Group.g
+                // ./src/php/Antlr/StringTemplate/Language/Group.g
                 {
                 $this->mLPAREN(); 
 
                 }
                 break;
             case 10 :
-                // src/php/Antlr/StringTemplate/Language/Group.g
+                // ./src/php/Antlr/StringTemplate/Language/Group.g
                 {
                 $this->mRPAREN(); 
 
                 }
                 break;
             case 11 :
-                // src/php/Antlr/StringTemplate/Language/Group.g
+                // ./src/php/Antlr/StringTemplate/Language/Group.g
                 {
                 $this->mLBRACK(); 
 
                 }
                 break;
             case 12 :
-                // src/php/Antlr/StringTemplate/Language/Group.g
+                // ./src/php/Antlr/StringTemplate/Language/Group.g
                 {
                 $this->mRBRACK(); 
 
                 }
                 break;
             case 13 :
-                // src/php/Antlr/StringTemplate/Language/Group.g
+                // ./src/php/Antlr/StringTemplate/Language/Group.g
                 {
                 $this->mCOMMA(); 
 
                 }
                 break;
             case 14 :
-                // src/php/Antlr/StringTemplate/Language/Group.g
+                // ./src/php/Antlr/StringTemplate/Language/Group.g
                 {
                 $this->mDOT(); 
 
                 }
                 break;
             case 15 :
-                // src/php/Antlr/StringTemplate/Language/Group.g
+                // ./src/php/Antlr/StringTemplate/Language/Group.g
                 {
                 $this->mDEFINED_TO_BE(); 
 
                 }
                 break;
             case 16 :
-                // src/php/Antlr/StringTemplate/Language/Group.g
+                // ./src/php/Antlr/StringTemplate/Language/Group.g
                 {
                 $this->mSEMI(); 
 
                 }
                 break;
             case 17 :
-                // src/php/Antlr/StringTemplate/Language/Group.g
+                // ./src/php/Antlr/StringTemplate/Language/Group.g
                 {
                 $this->mCOLON(); 
 
                 }
                 break;
             case 18 :
-                // src/php/Antlr/StringTemplate/Language/Group.g
+                // ./src/php/Antlr/StringTemplate/Language/Group.g
                 {
                 $this->mSTAR(); 
 
                 }
                 break;
             case 19 :
-                // src/php/Antlr/StringTemplate/Language/Group.g
+                // ./src/php/Antlr/StringTemplate/Language/Group.g
                 {
                 $this->mPLUS(); 
 
                 }
                 break;
             case 20 :
-                // src/php/Antlr/StringTemplate/Language/Group.g
+                // ./src/php/Antlr/StringTemplate/Language/Group.g
                 {
                 $this->mASSIGN(); 
 
                 }
                 break;
             case 21 :
-                // src/php/Antlr/StringTemplate/Language/Group.g
+                // ./src/php/Antlr/StringTemplate/Language/Group.g
                 {
                 $this->mOPTIONAL(); 
 
                 }
                 break;
             case 22 :
-                // src/php/Antlr/StringTemplate/Language/Group.g
+                // ./src/php/Antlr/StringTemplate/Language/Group.g
                 {
                 $this->mCOMMENT(); 
 
                 }
                 break;
             case 23 :
-                // src/php/Antlr/StringTemplate/Language/Group.g
+                // ./src/php/Antlr/StringTemplate/Language/Group.g
                 {
                 $this->mLINE_COMMENT(); 
 
                 }
                 break;
             case 24 :
-                // src/php/Antlr/StringTemplate/Language/Group.g
+                // ./src/php/Antlr/StringTemplate/Language/Group.g
                 {
                 $this->mWS(); 
 

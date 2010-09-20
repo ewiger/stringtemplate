@@ -65,10 +65,15 @@ namespace Antlr\StringTemplate\Language;
 }
 
 @parser::members {
-    
-    protected StringTemplateGroup \$group;
 
-    public void reportError(Exception \$exception) {
+    /**
+     * Template group
+     *
+     * @var StringTemplateGroup
+     */
+    protected \$group;
+
+    public function reportError(Exception \$exception) {
     	if ( \$this->group!=null ) {
 	        \$group->error("template group parse error", \$exception);
     	} else {
