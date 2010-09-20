@@ -1,7 +1,10 @@
 <?php
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 ./src/php/Antlr/StringTemplate/Language/Group.g 2010-09-20 22:32:16
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 ./src/php/Antlr/StringTemplate/Language/Group.g 2010-09-20 22:49:59
 
 namespace Antlr\StringTemplate\Language;
+
+use Antlr\StringTemplate\StringTemplateGroup;
+use Antlr\StringTemplate\StringTemplate;
 
 
 /** Match a group of template definitions beginning
@@ -432,7 +435,7 @@ class GroupParser extends Parser {
                                           else {
                                               $err = false;
                                               // @template.region() ::= "..."
-                                              $enclosingST = g->lookupTemplate(enclosing->getText());
+                                              $enclosingST = $g->lookupTemplate($enclosing->getText());
                                               if ( $enclosingST==null ) {
                                                   $g->error("group ".$g->getName()." line ".$line.": reference to region within undefined template: ".
                                                       $enclosing->getText());
@@ -728,7 +731,8 @@ class GroupParser extends Parser {
 
 
 
-            Map m=null;
+            /* @var Map $m */
+            $m=null;
 
         try {
             // ./src/php/Antlr/StringTemplate/Language/Group.g
@@ -749,7 +753,7 @@ class GroupParser extends Parser {
               	        $g->error("redefinition of template as map: ".$name->getText());
               	    }
               	    else {
-              	    	$g->defineMap($name->getText(), m);
+              	    	$g->defineMap($name->getText(), $m);
               	    }
               	    
 
@@ -926,7 +930,8 @@ class GroupParser extends Parser {
 
 
 
-        StringTemplate v = null;
+            /* @var StringTemplate $v */
+            $v = null;
 
         try {
             // ./src/php/Antlr/StringTemplate/Language/Group.g
@@ -965,7 +970,8 @@ class GroupParser extends Parser {
 
 
 
-        StringTemplate v = null;
+            /* @var StringTemplate $v */
+            $v = null;
 
         try {
             // ./src/php/Antlr/StringTemplate/Language/Group.g
@@ -1037,7 +1043,7 @@ class GroupParser extends Parser {
                     // ./src/php/Antlr/StringTemplate/Language/Group.g
                     {
                     $s1=$this->match($this->input,$this->getToken('BIGSTRING'),self::$FOLLOW_BIGSTRING_in_keyValue614); 
-                      value = new StringTemplate(group,$s1->getText());
+                      $value = new StringTemplate($this->group,$s1->getText());
 
                     }
                     break;
@@ -1045,7 +1051,7 @@ class GroupParser extends Parser {
                     // ./src/php/Antlr/StringTemplate/Language/Group.g
                     {
                     $s2=$this->match($this->input,$this->getToken('STRING'),self::$FOLLOW_STRING_in_keyValue623); 
-                      value = new StringTemplate(group,$s2->getText());
+                      $value = new StringTemplate($this->group,$s2->getText());
 
                     }
                     break;

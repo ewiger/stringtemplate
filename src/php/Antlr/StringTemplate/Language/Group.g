@@ -59,6 +59,9 @@ options {
 
 @parser::header {
 namespace Antlr\StringTemplate\Language;
+
+use Antlr\StringTemplate\StringTemplateGroup;
+use Antlr\StringTemplate\StringTemplate;
 }
 @lexer::header {
 namespace Antlr\StringTemplate\Language;
@@ -115,7 +118,7 @@ template[StringTemplateGroup g]
             else {
                 \$err = false;
                 // @template.region() ::= "..."
-                \$enclosingST = $g->lookupTemplate($enclosing->getText());
+                \$enclosingST = \$g->lookupTemplate(\$enclosing->getText());
                 if ( \$enclosingST==null ) {
                     \$g->error("group ".\$g->getName()." line ".\$line.": reference to region within undefined template: ".
                         \$enclosing->getText());
@@ -197,7 +200,8 @@ suffix returns [int cardinality=FormalArgument.REQUIRED]
 
 mapdef[StringTemplateGroup g]
 @init {
-    Map m=null;
+    /* @var Map \$m */
+    \$m=null;
 }
 	: name=ID
 	  DEFINED_TO_BE m=map
@@ -209,7 +213,7 @@ mapdef[StringTemplateGroup g]
 	        \$g->error("redefinition of template as map: ".\$name->getText());
 	    }
 	    else {
-	    	\$g->defineMap(\$name->getText(), m);
+	    	\$g->defineMap(\$name->getText(), \$m);
 	    }
 	    }
 	;
@@ -226,7 +230,8 @@ mapPairs [Map mapping]
 	
 defaultValuePair[Map mapping]
 @init{
-StringTemplate v = null;
+    /* @var StringTemplate \$v */
+    \$v = null;
 }	
 	:	'default' COLON v=keyValue
         {\$mapping->put(ASTExp::DEFAULT_MAP_VALUE_NAME, \$v);}
@@ -234,14 +239,15 @@ StringTemplate v = null;
 
 keyValuePair[Map mapping]
 @init{
-StringTemplate v = null;
+    /* @var StringTemplate \$v */
+    \$v = null;
 }
 	:	key=STRING COLON v=keyValue {\$mapping->put(\$key->getText(), \$v);}
 	;
 
 keyValue returns [StringTemplate value=null]
-	:	s1=BIGSTRING	{value = new StringTemplate(group,\$s1->getText());}
-	|	s2=STRING		{value = new StringTemplate(group,\$s2->getText());}
+	:	s1=BIGSTRING	{\$value = new StringTemplate(\$this->group,\$s1->getText());}
+	|	s2=STRING		{\$value = new StringTemplate(\$this->group,\$s2->getText());}
 	|	k=ID			{\$k->getText() == "key"}?
 						{\$value = ASTExpr::MAP_KEY_VALUE;}
 	|					{\$value = null;}
