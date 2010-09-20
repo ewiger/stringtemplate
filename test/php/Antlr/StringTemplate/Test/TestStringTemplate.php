@@ -40,8 +40,10 @@ namespace Antlr\StringTemplate\Test;
 
 use Antlr\StringTemplate\StringTemplateGroup;
 use Antlr\StringTemplate\StringTemplateGroupInterface;
-use Antlr\Util\FileReader;
-use Antlr\Util\StringReader;
+//use Antlr\Util\FileReader;
+//use Antlr\Util\StringReader;
+use Antlr\Runtime\ANTLRFileStream;
+use Antlr\Runtime\ANTLRStringStream;
 
 /**
  * StringTemplate unit tests
@@ -73,7 +75,7 @@ class TestStringTemplate extends \PHPUnit_Framework_TestCase
             "t();" . self::NEWLINE .
             "bold(item);" . self::NEWLINE .
             "optional duh(a,b,c);" . self::NEWLINE;
-        $reader = new StringReader($groupInterface);
+        $reader = new ANTLRStringStream($groupInterface);
         $stringTemplateGroupInterface = new StringTemplateGroupInterface($reader);
 
         $expecting =
@@ -105,7 +107,7 @@ class TestStringTemplate extends \PHPUnit_Framework_TestCase
 
         self::writeFile($tmpdir, "testG.stg", $templates);
 
-        $reader = new FileReader($tmpdir . "/testG.stg");
+        $reader = new ANTLRFileStream($tmpdir . "/testG.stg");
         StringTemplateGroup::groupFactory($reader, $errors);
 
         $expecting = "no group loader registered";
